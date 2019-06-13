@@ -8,12 +8,6 @@ class Jenis_surat extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
-		$this->current_page = [
-				'page_active' => [
-					'key' => 'jenis_surat',
-					'value' => 'Jenis Surat'
-				]
-			];
 		$this->load->model(['jenis_surat_model']);
 	}
 
@@ -22,21 +16,19 @@ class Jenis_surat extends CI_Controller {
 		$data = [
 			'jenis_surat' => $this->jenis_surat_model->select_all()
 		];
-		$data = array_merge_recursive($data, $this->current_page);
-		$this->load->view('dashboard/header', $data);
-		$this->load->view('dashboard/sidebar', $data);
+		$this->load->view('dashboard/_parts/header', $data);
+		$this->load->view('dashboard/_parts/sidebar', $data);
 		$this->load->view('dashboard/jenis_surat/lihat', $data);
-		$this->load->view('dashboard/footer');
+		$this->load->view('dashboard/_parts/footer');
 	}
 
 	public function tambah()
 	{
 		$data = [];
-		$data = array_merge_recursive($data, $this->current_page);
-		$this->load->view('dashboard/header', $data);
-		$this->load->view('dashboard/sidebar', $data);
+		$this->load->view('dashboard/_parts/header', $data);
+		$this->load->view('dashboard/_parts/sidebar', $data);
 		$this->load->view('dashboard/jenis_surat/tambah', $data);
-		$this->load->view('dashboard/footer');
+		$this->load->view('dashboard/_parts/footer');
 	}
 
 	public function tambah_ak()

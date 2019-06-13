@@ -8,12 +8,6 @@ class Kartu_keluarga extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
-		$this->current_page = [
-				'page_active' => [
-					'key' => 'kartu_keluarga',
-					'value' => 'Kartu Keluarga'
-				]
-			];
 		$this->load->model(['kartu_keluarga_model']);
 	}
 
@@ -22,21 +16,19 @@ class Kartu_keluarga extends CI_Controller {
 		$data = [
 			'kartu_keluarga' => $this->kartu_keluarga_model->select_all()
 		];
-		$data = array_merge_recursive($data, $this->current_page);
-		$this->load->view('dashboard/header', $data);
-		$this->load->view('dashboard/sidebar', $data);
+		$this->load->view('dashboard/_parts/header', $data);
+		$this->load->view('dashboard/_parts/sidebar', $data);
 		$this->load->view('dashboard/Kartu_keluarga/lihat', $data);
-		$this->load->view('dashboard/footer');
+		$this->load->view('dashboard/_parts/footer');
 	}
 
 	public function tambah()
 	{
 		$data = [];
-		$data = array_merge_recursive($data, $this->current_page);
-		$this->load->view('dashboard/header', $data);
-		$this->load->view('dashboard/sidebar', $data);
+		$this->load->view('dashboard/_parts/header', $data);
+		$this->load->view('dashboard/_parts/sidebar', $data);
 		$this->load->view('dashboard/Kartu_keluarga/tambah', $data);
-		$this->load->view('dashboard/footer');
+		$this->load->view('dashboard/_parts/footer');
 	}
 
 	public function tambah_ak()

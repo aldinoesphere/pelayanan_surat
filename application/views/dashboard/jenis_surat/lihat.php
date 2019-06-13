@@ -3,11 +3,11 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Halaman <?php echo $page_active['value']; ?>
+                        Halaman Jenis Surat
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo base_url('dashboard'); ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-                        <li class="active"><?php echo $page_active['value']; ?></li>
+                        <li class="active">Jenis Surat</li>
                     </ol>
                 </section>
 
@@ -16,7 +16,7 @@
                     <div class="col-md-10">
                         <div class="box">
                             <div class="box-header">
-                                <h3 class="box-title">Data <?php echo $page_active['value']; ?></h3>
+                                <h3 class="box-title">Data Jenis Surat</h3>
                             </div>
                             <!-- /.box-header -->
                             <div class="box-body">
@@ -69,7 +69,7 @@
             </footer>
         </div>
         <!-- ./wrapper -->
-        <?php $this->load->view('dashboard/js'); ?>
+        <?php $this->load->view('dashboard/_parts/js'); ?>
         <!-- REQUIRED JS SCRIPTS -->
         <script type="text/javascript">
             $(document).load(function() {

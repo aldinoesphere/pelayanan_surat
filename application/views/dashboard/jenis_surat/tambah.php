@@ -3,11 +3,11 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Tambah <?php echo $page_active['value']; ?>
+                        Tambah Jenis Surat
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo base_url('dashboard'); ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-                        <li class="active"><?php echo $page_active['value']; ?></li>
+                        <li class="active">Jenis Surat</li>
                         <li class="active">Tambah</li>
                     </ol>
                 </section>
@@ -18,8 +18,11 @@
                         <div class="box">
                             <!-- general form elements -->
                             <div class="box box-primary">
-                                <div class="box-header with-border">
-                                    <h3 class="box-title">Form <?php echo $page_active['value']; ?></h3>
+                                <div class="box-header">
+                                    <h3 class="box-title">Masukan Data Jenis Surat</h3>
+                                    <div class="pull-right box-tools">
+                                        <a class="btn btn-primary" href="<?php echo base_url('jenis_surat'); ?>"><i class="fa fa-arrow-left"></i></a>
+                                    </div>
                                 </div>
                                 <!-- /.box-header -->
                                 <!-- form start -->
@@ -70,7 +73,7 @@
             </footer>
         </div>
         <!-- ./wrapper -->
-        <?php $this->load->view('dashboard/js'); ?>
+        <?php $this->load->view('dashboard/_parts/js'); ?>
         <script src="<?php echo base_url(); ?>assets/bower_components/ckeditor/ckeditor.js"></script>
         <!-- REQUIRED JS SCRIPTS -->
         <script type="text/javascript">

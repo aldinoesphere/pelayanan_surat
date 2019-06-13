@@ -1,5 +1,5 @@
-<?php $this->load->view('dashboard/header'); ?>
-<?php $this->load->view('dashboard/sidebar');?>
+<?php $this->load->view('dashboard/_parts/header'); ?>
+<?php $this->load->view('dashboard/_parts/sidebar');?>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -21,6 +21,6 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-<?php $this->load->view('dashboard/js'); ?>
+<?php $this->load->view('dashboard/_parts/js'); ?>
 <!-- REQUIRED JS SCRIPTS -->
-<?php $this->load->view('dashboard/footer'); ?>
+<?php $this->load->view('dashboard/_parts/footer'); ?>

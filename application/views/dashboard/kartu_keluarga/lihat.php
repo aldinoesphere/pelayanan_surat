@@ -7,7 +7,7 @@
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo base_url('dashboard'); ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-                        <li class="active"><?php echo $page_active['value']; ?></li>
+                        <li class="active">Kartu Keluarga</li>
                     </ol>
                 </section>
 
@@ -72,7 +72,7 @@
             </footer>
         </div>
         <!-- ./wrapper -->
-        <?php $this->load->view('dashboard/js'); ?>
+        <?php $this->load->view('dashboard/_parts/js'); ?>
         <!-- REQUIRED JS SCRIPTS -->
         <script type="text/javascript">
             $(document).load(function() {

@@ -17,45 +17,21 @@
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">Master Data</li>
-            <li class="treeview
-                <?php
-                    $sub_pages = [
-                        'kartu_keluarga'
-                    ];
-
-                    if (isset($page_active)) {
-                        if (in_array($page_active['key'], $sub_pages)) {
-                            echo 'active';
-                        }
-                    }
-                ?>
-            ">
-                <a href="#"><i class="fa fa-link"></i> <span>Keluarga</span>
+            <li class="treeview">
+                <a href="#"><i class="fa fa-link"></i> <span>Kependudukan</span>
                     <span class="pull-right-container">
                     <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li
-                        <?php
-                            if (isset($page_active)) {
-                                if ($page_active['key'] == 'kartu_keluarga') {
-                                    echo 'class="active"';
-                                }
-                            }
-                        ?>
-                    ><a href="<?php echo base_url('kartu_keluarga'); ?>">Kartu Keluarga</a></li>
+                    <li <?php echo $this->uri->segment(1) == 'kartu_keluarga' ? 'class="active"' : ''; ?>>
+                        <a href="<?php echo base_url('kartu_keluarga'); ?>">
+                            Kartu Keluarga
+                        </a>
+                    </li>
                 </ul>
             </li>
-            <li 
-                <?php
-                    if (isset($page_active)) {
-                        if ($page_active['key'] === 'jenis_surat') {
-                            echo 'class="active"';
-                        }
-                    } 
-                ?>
-            >
+            <li <?php echo $this->uri->segment(1) == 'jenis_surat' ? 'class="active"' : ''; ?>>
                 <a href="<?php echo base_url('jenis_surat'); ?>"><i class="fa fa-envelope-o"></i>
                     <span>Jenis Surat</span>
                 </a>

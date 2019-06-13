@@ -16,9 +16,9 @@
         </div>
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu" data-widget="tree">
-            <li class="header">Master Data</li>
+            <li class="header">MASTER DATA</li>
             <li class="treeview">
-                <a href="#"><i class="fa fa-link"></i> <span>Kependudukan</span>
+                <a href="#"><i class="fa fa-group"></i> <span>Kependudukan</span>
                     <span class="pull-right-container">
                     <i class="fa fa-angle-left pull-right"></i>
                     </span>
@@ -31,11 +31,17 @@
                     </li>
                 </ul>
             </li>
+            <li <?php echo $this->uri->segment(1) == 'pekerjaan' ? 'class="active"' : ''; ?>>
+                <a href="<?php echo base_url('pekerjaan'); ?>"><i class="fa fa-suitcase"></i>
+                    <span>Pekerjaan</span>
+                </a>
+            </li>
             <li <?php echo $this->uri->segment(1) == 'jenis_surat' ? 'class="active"' : ''; ?>>
                 <a href="<?php echo base_url('jenis_surat'); ?>"><i class="fa fa-envelope-o"></i>
                     <span>Jenis Surat</span>
                 </a>
             </li>
+            <li class="header">PELAYANAN</li>
         </ul>
         <!-- /.sidebar-menu -->
     </section>

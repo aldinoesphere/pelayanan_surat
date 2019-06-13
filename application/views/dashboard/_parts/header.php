@@ -16,6 +16,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/dist/css/skins/skin-blue.min.css">
         <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+        <div id="loader" style="width: 100%; height: 100%; z-index:10000; position:fixed; display:none; opacity: 0.8; background:#000 url('<?php echo base_url("assets/dist/img/loading.gif"); ?>') center center no-repeat;"></div>
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">

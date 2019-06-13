@@ -21,7 +21,7 @@
                                 <div class="box-header">
                                     <h3 class="box-title">Masukan Data Jenis Surat</h3>
                                     <div class="pull-right box-tools">
-                                        <a class="btn btn-primary" href="<?php echo base_url('jenis_surat'); ?>"><i class="fa fa-arrow-left"></i></a>
+                                        <a class="btn btn-primary" href="<?php echo base_url('jenis_surat'); ?>"><i class="fa fa-mail-reply"></i></a>
                                     </div>
                                 </div>
                                 <!-- /.box-header -->

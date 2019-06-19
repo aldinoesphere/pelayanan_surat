@@ -139,6 +139,7 @@
             function ajax_form() {
                 $('#form_kk').on('submit', function(e) {
                     e.preventDefault();
+                    var form = this;
                     $('.form-loading').show();
                     data = $(this).serialize();
                     $.ajax({
@@ -147,12 +148,9 @@
                         type : "POST",
                         data : data
                     }).done(function(r) {
+                        $(form)[0].reset();
                         $('.form-loading').hide();
-                        if (r.cls == 'success') {
-                            alert(r.msg);
-                        } else {
-                            alert(r.msg);
-                        }
+                        $.notify(r.msg, r.cls);
                     }).fail(function() {
                         $('.form-loading').hide();
                     });

@@ -16,30 +16,64 @@
         </div>
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu" data-widget="tree">
-            <li class="header">MASTER DATA</li>
             <li class="treeview">
-                <a href="#"><i class="fa fa-group"></i> <span>Kependudukan</span>
+                <a href="#">
+                    <i class="fa fa-home"></i> <span>Beranda</span>
+                </a>
+            </li>
+            <li <?php echo $this->uri->segment(1) == 'kartu_keluarga' ? 'class="active"' : ''; ?>>
+                <a href="<?php echo base_url('kartu_keluarga'); ?>">
+                    <i class="fa fa-user"></i> Kartu Keluarga
+                </a>
+            </li>
+            <li <?php echo $this->uri->segment(1) == 'kependudukan' ? 'class="active"' : ''; ?>>
+                <a href="<?php echo base_url('kependudukan'); ?>">
+                    <i class="fa fa-group"></i> Kependudukan
+                </a>
+            </li>
+            <li class="treeview">
+                <a href="#"><i class="fa fa-cubes"></i> <span>Master data</span>
                     <span class="pull-right-container">
                     <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li <?php echo $this->uri->segment(1) == 'kartu_keluarga' ? 'class="active"' : ''; ?>>
-                        <a href="<?php echo base_url('kartu_keluarga'); ?>">
-                            Kartu Keluarga
+                    <li <?php echo $this->uri->segment(1) == 'agama' ? 'class="active"' : ''; ?>>
+                        <a href="#">
+                            Agama
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Hubungan
+                        </a>
+                    </li>
+                    <li <?php echo $this->uri->segment(1) == 'pekerjaan' ? 'class="active"' : ''; ?>>
+                        <a href="<?php echo base_url('pekerjaan'); ?>">
+                            <span>Pekerjaan</span>
+                        </a> 
+                    </li>
+                    <li>
+                        <a href="#">
+                            Pendidikan
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Status Kawin
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Status Tinggal
+                        </a>
+                    </li>
+                    <li <?php echo $this->uri->segment(1) == 'jenis_surat' ? 'class="active"' : ''; ?>>
+                        <a href="<?php echo base_url('jenis_surat'); ?>">
+                            <span>Surat</span>
                         </a>
                     </li>
                 </ul>
-            </li>
-            <li <?php echo $this->uri->segment(1) == 'pekerjaan' ? 'class="active"' : ''; ?>>
-                <a href="<?php echo base_url('pekerjaan'); ?>"><i class="fa fa-suitcase"></i>
-                    <span>Pekerjaan</span>
-                </a>
-            </li>
-            <li <?php echo $this->uri->segment(1) == 'jenis_surat' ? 'class="active"' : ''; ?>>
-                <a href="<?php echo base_url('jenis_surat'); ?>"><i class="fa fa-envelope-o"></i>
-                    <span>Jenis Surat</span>
-                </a>
             </li>
             <li class="header">PELAYANAN</li>
         </ul>

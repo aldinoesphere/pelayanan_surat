@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 13, 2019 at 05:34 PM
+-- Generation Time: Jun 19, 2019 at 07:09 PM
 -- Server version: 10.1.32-MariaDB
--- PHP Version: 7.2.5
+-- PHP Version: 7.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -64,7 +64,32 @@ CREATE TABLE `kartu_keluarga` (
 --
 
 INSERT INTO `kartu_keluarga` (`id`, `no_kk`, `alamat`, `rt`, `rw`, `kelurahan`, `kecamatan`, `kota`, `kode_pos`, `created`, `flag`) VALUES
-(1, '3212203003950001', 'test', '02', '03', 'KRIMUN', 'LOSARANG', 'INDRAMAYU', '45253', '2019-02-05 00:00:00', 0);
+(1, '3212203003950001', 'test', '02', '03', 'KRIMUN', 'LOSARANG', 'INDRAMAYU', '45253', '2019-02-05 00:00:00', 0),
+(2, '2345643246546546', 'fgvdfbvdfb', '01', '04', 'KRIMUN', 'LOSARANG', 'INDRAMAYU', '45253', '2019-06-18 00:00:00', 0),
+(3, '3456765643243542', 'fdgfdfdg', '02', '03', 'KRIMUN', 'LOSARANG', 'INDRAMAYU', '45253', '2019-06-18 00:00:00', 0),
+(4, '23453423435', 'dfdsfdsf', '01', '01', 'KRIMUN', 'LOSARANG', 'INDRAMAYU', '45253', '2019-06-18 00:00:00', 0),
+(5, '32424325325', 'fsdfsdfsd', '02', '01', 'KRIMUN', 'LOSARANG', 'INDRAMAYU', '45253', '2019-06-18 00:00:00', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pekerjaan`
+--
+
+CREATE TABLE `pekerjaan` (
+  `id` int(11) NOT NULL,
+  `kode_pekerjaan` char(2) NOT NULL,
+  `nama_pekerjaan` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pekerjaan`
+--
+
+INSERT INTO `pekerjaan` (`id`, `kode_pekerjaan`, `nama_pekerjaan`) VALUES
+(4, '01', 'PETANI'),
+(5, '02', 'NELAYAN'),
+(6, '03', 'GURU');
 
 -- --------------------------------------------------------
 
@@ -99,6 +124,12 @@ ALTER TABLE `kartu_keluarga`
   ADD UNIQUE KEY `no_kk` (`no_kk`);
 
 --
+-- Indexes for table `pekerjaan`
+--
+ALTER TABLE `pekerjaan`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `trans_surat`
 --
 ALTER TABLE `trans_surat`
@@ -118,7 +149,13 @@ ALTER TABLE `jenis_surat`
 -- AUTO_INCREMENT for table `kartu_keluarga`
 --
 ALTER TABLE `kartu_keluarga`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `pekerjaan`
+--
+ALTER TABLE `pekerjaan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `trans_surat`

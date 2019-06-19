@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 19, 2019 at 07:09 PM
+-- Generation Time: Jun 19, 2019 at 07:25 PM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 7.0.30
 
@@ -21,6 +21,25 @@ SET time_zone = "+00:00";
 --
 -- Database: `pelayanan_surat`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `agama`
+--
+
+CREATE TABLE `agama` (
+  `id` int(11) NOT NULL,
+  `kode_agama` char(2) NOT NULL,
+  `nama_agama` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `agama`
+--
+
+INSERT INTO `agama` (`id`, `kode_agama`, `nama_agama`) VALUES
+(1, '01', 'ISLAM');
 
 -- --------------------------------------------------------
 
@@ -94,6 +113,18 @@ INSERT INTO `pekerjaan` (`id`, `kode_pekerjaan`, `nama_pekerjaan`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `pendidikan`
+--
+
+CREATE TABLE `pendidikan` (
+  `id` int(11) NOT NULL,
+  `kode_pendidikan` char(2) NOT NULL,
+  `nama_pendidikan` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `trans_surat`
 --
 
@@ -109,6 +140,12 @@ CREATE TABLE `trans_surat` (
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `agama`
+--
+ALTER TABLE `agama`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `jenis_surat`
@@ -130,6 +167,12 @@ ALTER TABLE `pekerjaan`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `pendidikan`
+--
+ALTER TABLE `pendidikan`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `trans_surat`
 --
 ALTER TABLE `trans_surat`
@@ -138,6 +181,12 @@ ALTER TABLE `trans_surat`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `agama`
+--
+ALTER TABLE `agama`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `jenis_surat`
@@ -156,6 +205,12 @@ ALTER TABLE `kartu_keluarga`
 --
 ALTER TABLE `pekerjaan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `pendidikan`
+--
+ALTER TABLE `pendidikan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `trans_surat`

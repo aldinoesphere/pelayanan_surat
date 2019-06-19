@@ -1,39 +1,39 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Pekerjaan extends CI_Controller {
+class Agama extends CI_Controller {
 
 	protected $current_page = [];
 
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model(['pekerjaan_model']);
+		$this->load->model(['agama_model']);
 	}
 
 	public function index()
 	{
 		$data = [
-			'pekerjaan' => $this->pekerjaan_model->select_all()
+			'agama' => $this->agama_model->select_all()
 		];
 		$this->load->view('dashboard/_parts/header', $data);
 		$this->load->view('dashboard/_parts/sidebar', $data);
-		$this->load->view('dashboard/pekerjaan/lihat', $data);
+		$this->load->view('dashboard/agama/lihat', $data);
 		$this->load->view('dashboard/_parts/footer');
 	}
 
 	public function hapus($id)
 	{
-		if ($this->pekerjaan_model->delete($id))
+		if ($this->agama_model->delete($id))
 		{
 			$return = [
 				'cls' => 'success',
-				'msg' => 'Pekerjaan Berhasil dihapus.'
+				'msg' => 'Agama Berhasil dihapus.'
 			];
 		} else {
 			$return = [
 				'cls' => 'failed',
-				'msg' => 'Pekerjaan Gagal dihapus.'
+				'msg' => 'Agama Gagal dihapus.'
 			];
 		}
 
@@ -41,15 +41,15 @@ class Pekerjaan extends CI_Controller {
 	}
 
 	public function ajax_table() {
-		$pekerjaan = $this->pekerjaan_model->select_all();
+		$agama = $this->agama_model->select_all();
 		$i = 1;
 		$html = '';
-		foreach ($pekerjaan as $value) {
+		foreach ($agama as $value) {
 			$html .= '
 				<tr>
                     <td>' . $i . '</td>
-                    <td>' . $value->kode_pekerjaan . '</td>
-                    <td>' . $value->nama_pekerjaan . '</td>
+                    <td>' . $value->kode_agama . '</td>
+                    <td>' . $value->nama_agama . '</td>
                     <td>
                         <button type="button" class="btn btn-primary" onClick="editField(' . $value->id . ')">
                             <i class="fa fa-pencil"></i>
@@ -67,55 +67,55 @@ class Pekerjaan extends CI_Controller {
 
 	public function cari($id)
 	{
-		$data = $this->pekerjaan_model->get_by_id($id);
+		$data = $this->agama_model->get_by_id($id);
 		echo json_encode($data[0]);
 	}
 
 	public function ubah($id)
 	{
 		$inputs = $this->input->post();
-		if ($this->pekerjaan_model->update($inputs, $id))
+		if ($this->agama_model->update($inputs, $id))
 		{
 			$return = [
 				'cls' => 'success',
-				'msg' => 'Pekerjaan Berhasil diubah.'
+				'msg' => 'Agama Berhasil diubah.'
 			];
 		} else {
 			$return = [
 				'cls' => 'failed',
-				'msg' => 'Pekerjaan Gagal diubah.'
+				'msg' => 'Agama Gagal diubah.'
 			];
 		}
 
 		echo json_encode($return);
 	}
 
-	protected function cek_data_pekerjaan($kode_pekerjaan)
+	protected function cek_data_agama($kode_agama)
 	{
-		$pekerjaan = $this->pekerjaan_model->get_by_code($kode_pekerjaan);
-		return $pekerjaan;
+		$agama = $this->agama_model->get_by_code($kode_agama);
+		return $agama;
 	}
 
 	public function simpan()
 	{
 		$inputs = $this->input->post();
 		$return = [];
-		if ($this->cek_data_pekerjaan($inputs['kode_pekerjaan'])) {
+		if ($this->cek_data_agama($inputs['kode_agama'])) {
 			$return = [
 				'cls' => 'danger',
-				'msg' => 'Kode pekerjaan ('. $inputs['kode_pekerjaan'] .') sudah ada, silahkan masukan kode pekerjaan yang lain.'
+				'msg' => 'Kode agama ('. $inputs['kode_agama'] .') sudah ada, silahkan masukan kode agama yang lain.'
 			];
 		} else {
-			if ($this->pekerjaan_model->insert($inputs))
+			if ($this->agama_model->insert($inputs))
 			{
 				$return = [
 					'cls' => 'success',
-					'msg' => 'Pekerjaan Berhasil disimpan.'
+					'msg' => 'Agama Berhasil disimpan.'
 				];
 			} else {
 				$return = [
 					'cls' => 'failed',
-					'msg' => 'Pekerjaan Gagal disimpan.'
+					'msg' => 'Agama Gagal disimpan.'
 				];
 			}
 		}

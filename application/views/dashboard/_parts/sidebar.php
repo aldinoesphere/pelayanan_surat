@@ -39,12 +39,12 @@
                 </a>
                 <ul class="treeview-menu">
                     <li <?php echo $this->uri->segment(1) == 'agama' ? 'class="active"' : ''; ?>>
-                        <a href="#">
+                        <a href="<?php echo base_url('agama'); ?>">
                             Agama
                         </a>
                     </li>
-                    <li>
-                        <a href="#">
+                    <li <?php echo $this->uri->segment(1) == 'hubungan' ? 'class="active"' : ''; ?>>
+                        <a href="<?php echo base_url('hubungan'); ?>">
                             Hubungan
                         </a>
                     </li>
@@ -53,8 +53,8 @@
                             <span>Pekerjaan</span>
                         </a> 
                     </li>
-                    <li>
-                        <a href="#">
+                    <li <?php echo $this->uri->segment(1) == 'pendidikan' ? 'class="active"' : ''; ?>>
+                        <a href="<?php echo base_url('pendidikan'); ?>">
                             Pendidikan
                         </a>
                     </li>

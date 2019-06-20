@@ -58,8 +58,8 @@
                             Pendidikan
                         </a>
                     </li>
-                    <li>
-                        <a href="#">
+                    <li <?php echo $this->uri->segment(1) == 'status_kawin' ? 'class="active"' : ''; ?>>
+                        <a href="<?php echo base_url('status_kawin'); ?>">
                             Status Kawin
                         </a>
                     </li>

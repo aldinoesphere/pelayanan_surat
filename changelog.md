@@ -3,3 +3,4 @@
 * add module Pekerjaan
 * add module Agama
 * add module Pendidikan
+* add module Hubungan

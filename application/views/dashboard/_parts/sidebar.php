@@ -63,8 +63,8 @@
                             Status Kawin
                         </a>
                     </li>
-                    <li>
-                        <a href="#">
+                    <li <?php echo $this->uri->segment(1) == 'status_tinggal' ? 'class="active"' : ''; ?>>
+                        <a href="<?php echo base_url('status_tinggal'); ?>">
                             Status Tinggal
                         </a>
                     </li>

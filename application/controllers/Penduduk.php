@@ -8,33 +8,61 @@ class Penduduk extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model(['pendidikan_model']);
+		$this->load->model([
+			'kartu_keluarga_model',
+			'pendidikan_model',
+			'agama_model',
+			'hubungan_model',
+			'pekerjaan_model',
+			'penduduk_model',
+			'status_kawin_model'
+		]);
 	}
 
-	public function tambah_anggota_keluarga($no_kk)
+	public function index()
 	{
 		$data = [
-			'no_kk' => $no_kk,
-			'pendidikan' => $this->pendidikan_model->select_all()
+			'penduduk' => $this->penduduk_model->select_all()
 		];
 		$this->load->view('dashboard/_parts/header', $data);
 		$this->load->view('dashboard/_parts/sidebar', $data);
-		$this->load->view('dashboard/penduduk/tambah_anggota_keluarga', $data);
+		$this->load->view('dashboard/penduduk/lihat', $data);
 		$this->load->view('dashboard/_parts/footer');
 	}
 
-	public function hapus($id)
+	public function tambah_penduduk()
 	{
-		if ($this->pendidikan_model->delete($id))
+		$data = [
+			'kartu_keluarga' => $this->kartu_keluarga_model->select_all(),
+			'pendidikan' => $this->pendidikan_model->select_all(),
+			'pekerjaan' => $this->pekerjaan_model->select_all(),
+			'agama'	=> $this->agama_model->select_all(),
+			'hubungan' => $this->hubungan_model->select_all(),
+			'status_kawin' => $this->status_kawin_model->select_all()
+		];
+		$this->load->view('dashboard/_parts/header', $data);
+		$this->load->view('dashboard/_parts/sidebar', $data);
+		$this->load->view('dashboard/penduduk/tambah_penduduk', $data);
+		$this->load->view('dashboard/_parts/footer');
+	}
+
+	/**
+	* Aksi hapus Penduduk
+	*
+	* @return $return JSON
+	*/
+	public function hapus($nik)
+	{
+		if ($this->penduduk_model->delete($nik))
 		{
 			$return = [
 				'cls' => 'success',
-				'msg' => 'Pendidikan Berhasil dihapus.'
+				'msg' => 'Data Penduduk Berhasil dihapus.'
 			];
 		} else {
 			$return = [
 				'cls' => 'failed',
-				'msg' => 'Pendidikan Gagal dihapus.'
+				'msg' => 'Data Penduduk Gagal dihapus.'
 			];
 		}
 
@@ -42,20 +70,36 @@ class Penduduk extends CI_Controller {
 	}
 
 	public function ajax_table() {
-		$pendidikan = $this->pendidikan_model->select_all();
+		$penduduk = $this->penduduk_model->select_all();
 		$i = 1;
 		$html = '';
-		foreach ($pendidikan as $value) {
+		foreach ($penduduk as $ak) {
 			$html .= '
 				<tr>
                     <td>' . $i . '</td>
-                    <td>' . $value->kode_pendidikan . '</td>
-                    <td>' . $value->nama_pendidikan . '</td>
+                    <td>' . $ak->nik . '</td>
+                    <td>' . $ak->nama_lengkap . '</td>
+                    <td>';
+                    switch ($ak->jk) {
+                        case '1':
+                            $html .= "LAKI-LAKI";
+                            break;
+                        
+                        default:
+                            $html .= "PEREMPUAN";
+                            break;
+                    }
+            $html .= '</td>
+                    <td>' . $ak->tgl_lahir . '</td>
+                    <td>' . $ak->alamat . '</td>
                     <td>
-                        <button type="button" class="btn btn-primary" onClick="editField(' . $value->id . ')">
+                    	<a class="btn btn-info" href="' . base_url('penduduk/details/'. $ak->nik) 	.'">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                        <button type="button" class="btn btn-primary" onClick="editField(' . $ak->id . ')">
                             <i class="fa fa-pencil"></i>
                         </button>
-                        <button type="button" class="btn btn-danger" onClick="deleteField(' . $value->id . ')">
+                        <button type="button" class="btn btn-danger" onClick="deleteField(' . $ak->nik . ')">
                             <i class="fa fa-trash"></i>
                         </button>
                     </td>
@@ -66,61 +110,100 @@ class Penduduk extends CI_Controller {
 		echo $html;
 	}
 
-	public function cari($id)
+	/**
+	* Form ubah Anggota Keluarga
+	*
+	*/
+	public function ubah_penduduk($nik)
 	{
-		$data = $this->pendidikan_model->get_by_id($id);
-		echo json_encode($data[0]);
+		$data = [
+			'kartu_keluarga' => $this->kartu_keluarga_model->select_all(),
+			'pendidikan' => $this->pendidikan_model->select_all(),
+			'pekerjaan' => $this->pekerjaan_model->select_all(),
+			'agama'	=> $this->agama_model->select_all(),
+			'hubungan' => $this->hubungan_model->select_all(),
+			'penduduk' => $this->penduduk_model->get_by_nik($nik),
+			'status_kawin' => $this->status_kawin_model->select_all()
+		];
+		$this->load->view('dashboard/_parts/header', $data);
+		$this->load->view('dashboard/_parts/sidebar', $data);
+		$this->load->view('dashboard/penduduk/ubah_penduduk', $data);
+		$this->load->view('dashboard/_parts/footer');
 	}
 
-	public function ubah($id)
+	/**
+	* Aksi ubah data penduduk
+	*
+	* @return $return JSON
+	*/
+	public function ubah()
 	{
 		$inputs = $this->input->post();
-		if ($this->pendidikan_model->update($inputs, $id))
+
+		$inputs['tgl_lahir'] = date("Y-m-d", strtotime($inputs['tgl_lahir']));
+		foreach ($inputs as $key => $value) {
+			$inputs[$key] = strtoupper($value);
+		}
+
+		if ($this->penduduk_model->update($inputs, $inputs['nik']))
 		{
 			$return = [
 				'cls' => 'success',
-				'msg' => 'Pendidikan Berhasil diubah.'
+				'msg' => 'Data Penduduk Berhasil diubah.'
 			];
 		} else {
 			$return = [
 				'cls' => 'failed',
-				'msg' => 'Pendidikan Gagal diubah.'
+				'msg' => 'Data Penduduk Gagal diubah.'
 			];
 		}
 
 		echo json_encode($return);
 	}
 
-	protected function cek_data_pendidikan($kode_pendidikan)
-	{
-		$pendidikan = $this->pendidikan_model->get_by_code($kode_pendidikan);
-		return $pendidikan;
-	}
-
-	public function simpan()
+	/**
+	* Aksi simpan Data Penduduk
+	*
+	* @return $return JSON
+	*/
+	public function simpan_penduduk()
 	{
 		$inputs = $this->input->post();
-		$return = [];
-		if ($this->cek_data_pendidikan($inputs['kode_pendidikan'])) {
+
+		$inputs['tgl_lahir'] = date("Y-m-d", strtotime($inputs['tgl_lahir']));
+		foreach ($inputs as $key => $value) {
+			$inputs[$key] = strtoupper($value);
+		}
+
+		if ($this->penduduk_model->insert($inputs))
+		{
 			$return = [
-				'cls' => 'danger',
-				'msg' => 'Kode pendidikan ('. $inputs['kode_pendidikan'] .') sudah ada, silahkan masukan kode pendidikan yang lain.'
+				'cls' => 'success',
+				'msg' => 'Data Penduduk Berhasil disimpan.'
 			];
 		} else {
-			if ($this->pendidikan_model->insert($inputs))
-			{
-				$return = [
-					'cls' => 'success',
-					'msg' => 'Pendidikan Berhasil disimpan.'
-				];
-			} else {
-				$return = [
-					'cls' => 'failed',
-					'msg' => 'Pendidikan Gagal disimpan.'
-				];
-			}
+			$return = [
+				'cls' => 'failed',
+				'msg' => 'Data Penduduk Gagal disimpan.'
+			];
 		}
 
 		echo json_encode($return);
+	}
+
+	/**
+	* Lihat details penduduk
+	*
+	* @return $return void
+	*/
+	public function details($nik)
+	{
+		$data = [
+			'penduduk' => $this->penduduk_model->get_by_nik($nik)
+		];
+		$this->load->view('dashboard/_parts/header', $data);
+		$this->load->view('dashboard/_parts/sidebar', $data);
+		$this->load->view('dashboard/penduduk/details', $data);
+		$this->load->view('dashboard/_parts/footer');
 	}
 }

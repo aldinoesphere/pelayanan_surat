@@ -56,9 +56,14 @@ class Penduduk_model extends CI_Model
 	}
 
 	public function select_all() {
-		return $this->db
-					->get('penduduk')
-					->result();
+		$query = $this->db;
+					$query->join("agama AG", "AG.kode_agama=P.kode_agama", "left");	
+					$query->join("pendidikan PD", "PD.kode_pendidikan=P.kode_pendidikan", "left");
+					$query->join("pekerjaan PK", "PK.kode_pekerjaan=P.kode_pekerjaan", "left");
+					$query->join("status_kawin SK", "SK.kode_status_kawin=P.kode_status_kawin", "left");
+					$query->join("hubungan HB", "HB.kode_hubungan=P.kode_hubungan", "left");
+					$query->join("kartu_keluarga KK", "KK.no_kk=P.no_kk", "left");
+					return $query->get('penduduk P')->result();
 	}
 }
 ?>

@@ -5,3 +5,5 @@
 * add module Pendidikan
 * add module Hubungan
 * add module Status Kawin
+* add module Penduduk
+* add module Kartu Keluarga

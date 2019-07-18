@@ -27,7 +27,7 @@
                 </a>
             </li>
             <li <?php echo $this->uri->segment(1) == 'kependudukan' ? 'class="active"' : ''; ?>>
-                <a href="<?php echo base_url('kependudukan'); ?>">
+                <a href="<?php echo base_url('penduduk'); ?>">
                     <i class="fa fa-group"></i> Kependudukan
                 </a>
             </li>

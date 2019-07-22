@@ -96,7 +96,7 @@ class Penduduk extends CI_Controller {
                     	<a class="btn btn-info" href="' . base_url('penduduk/details/'. $ak->nik) 	.'">
                             <i class="fa fa-eye"></i>
                         </a>
-                        <button type="button" class="btn btn-primary" onClick="editField(' . $ak->id . ')">
+                        <button type="button" class="btn btn-primary" onClick="editField(' . $ak->nik . ')">
                             <i class="fa fa-pencil"></i>
                         </button>
                         <button type="button" class="btn btn-danger" onClick="deleteField(' . $ak->nik . ')">

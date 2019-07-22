@@ -290,4 +290,47 @@ class Kartu_keluarga extends CI_Controller {
 		$this->load->view('dashboard/Kartu_keluarga/detail_ak', $data);
 		$this->load->view('dashboard/_parts/footer');
 	}
+
+	public function ajax_table_ak() {
+		$penduduk = $this->penduduk_model->select_all();
+		$i = 1;
+		$html = '';
+		foreach ($penduduk as $ak) {
+			$html .= '
+				<tr>
+                    <td>' . $i . '</td>
+                    <td>' . $ak->nik . '</td>
+                    <td>' . $ak->nama_lengkap . '</td>
+                    <td>';
+                    switch ($ak->jk) {
+                        case '1':
+                            $html .= "LAKI-LAKI";
+                            break;
+                        
+                        default:
+                            $html .= "PEREMPUAN";
+                            break;
+                    }
+            $html .= '</td><td>';
+            		if ($ak->kode_hubungan) {
+            			$html .= '<i class="fa fa-star text-warning"></i>';
+            		}
+            $html .= $ak->nama_hubungan . '</td>
+                    <td>
+                    	<a class="btn btn-info" href="' . base_url('kartu_keluarga/detail_ak/'. $ak->nik) 	.'">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                        <button type="button" class="btn btn-primary" onClick="editField(' . $ak->nik . ')">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                        <button type="button" class="btn btn-danger" onClick="deleteField(' . $ak->nik . ')">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+			';
+			$i++;
+		}
+		echo $html;
+	}
 }

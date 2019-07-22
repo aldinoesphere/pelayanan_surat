@@ -3,7 +3,7 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Halaman Input Anggota Keluarga
+                        Halaman ubah data Anggota Keluarga
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo base_url('dashboard'); ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
@@ -22,7 +22,7 @@
                                 <!-- general form elements -->
                                 <div class="box box-primary">
                                     <div class="box-header">
-                                        <h3 class="box-title">Form Input Anggota Keluarga</h3>
+                                        <h3 class="box-title">Form ubah data Anggota Keluarga</h3>
                                     </div>
                                     <!-- /.box-header -->
                                     <!-- form start -->

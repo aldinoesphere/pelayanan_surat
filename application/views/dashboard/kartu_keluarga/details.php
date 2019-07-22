@@ -165,6 +165,9 @@
 <?php $this->load->view('dashboard/_parts/js'); ?>
 <!-- REQUIRED JS SCRIPTS -->
 <script type="text/javascript">
+    $(document).ready(function(){
+        $('#anggota_keluarga').DataTable({});
+    });
     function deleteField(nik) {
         var resultConfirm = confirm('Apakah Anda yakin hapus anggota keluarga ini?');
         if (resultConfirm) {
@@ -173,11 +176,24 @@
                 url : baseUrl+'kartu_keluarga/hapus_ak/'+nik,
                 dataType : 'JSON'
             }).done(function(r) {
+                reinitDataTable();
                 $('#loader').hide();
                 $.notify(r.msg, r.cls);
             }).fail(function() {
                 $('#loader').hide();
             });
         }
+    }
+
+    function reinitDataTable() {
+        $.ajax({
+            url : baseUrl+'kartu_keluarga/ajax_table_ak'
+        }).done(function(r) {
+            $('#anggota_keluarga').DataTable().destroy();
+            $('#anggota_keluarga tbody').html(r);
+            $('#anggota_keluarga').DataTable({});
+        }).fail(function() {
+
+        });
     }
 </script>

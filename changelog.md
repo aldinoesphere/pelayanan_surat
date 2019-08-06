@@ -7,3 +7,4 @@
 * add module Status Kawin
 * add module Penduduk
 * add module Kartu Keluarga
+* add module Jenis Surat

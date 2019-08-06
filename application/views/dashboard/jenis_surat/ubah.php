@@ -3,18 +3,19 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Tambah Jenis Surat
+                        Ubah Jenis Surat
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo base_url('dashboard'); ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
                         <li class="active">Jenis Surat</li>
-                        <li class="active">Tambah</li>
+                        <li class="active">Ubah</li>
                     </ol>
                 </section>
 
                 <!-- Main content -->
                 <section class="content container-fluid">
                     <div class="col-md-12">
+                        <?php foreach ($jenis_surat as $data_jenis_surat) :?>
                         <div class="box">
                             <!-- general form elements -->
                             <div class="box box-primary">
@@ -26,20 +27,20 @@
                                 </div>
                                 <!-- /.box-header -->
                                 <!-- form start -->
-                                <form role="form" id="form_jenis_surat" action="<?php echo base_url('jenis_surat/simpan_surat'); ?>">
+                                <form role="form" id="form_jenis_surat" action="<?php echo base_url('jenis_surat/update/'.$data_jenis_surat->id); ?>">
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label for="kode_surat">KODE SURAT</label>
-                                            <input type="text" class="form-control" id="kode_surat" name="kode_surat" placeholder="MASUKAN KODE SURAT" required>
+                                            <input type="text" class="form-control" id="kode_surat" name="kode_surat" value="<?php echo $data_jenis_surat->kode_surat; ?>" placeholder="MASUKAN KODE SURAT" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="nama_surat">NAMA SURAT</label>
-                                            <input type="text" class="form-control" id="nama_surat" name="nama_surat" placeholder="NAMA SURAT" required>
+                                            <input type="text" class="form-control" id="nama_surat" name="nama_surat" value="<?php echo $data_jenis_surat->nama_surat; ?>" placeholder="NAMA SURAT" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="informasi">INFORMASI</label>
                                             <textarea id="informasi" name="informasi" rows="10" cols="80">
-                                                
+                                                <?php echo $data_jenis_surat->informasi; ?>
                                             </textarea>
                                         </div>
                                         <div class="form-group">
@@ -53,7 +54,53 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="form-builder">
-                                                <p class="text-center field-default">Tidak ada data Field tambahan</p>
+                                                <?php
+                                                    if ($form_field) : 
+                                                        foreach ($form_field as $field) :
+                                                ?>
+                                                    <div class="item-field col-md-12">
+                                                        <div class="col-md-2 col-sm-2 form-group">
+                                                            <label class="control-label">ID</label>
+                                                            <input type="text" placeholder="Masukan ID element field" class="form-control" value="<?php echo $field->id; ?>" name="id[]" required>
+                                                        </div>
+                                                        <div class="col-md-2 col-sm-2 form-group">
+                                                            <label class="control-label">Nama label</label>
+                                                            <input type="text" placeholder="Masukan nama label field" class="form-control" value="<?php echo $field->label; ?>" name="label[]" required>
+                                                        </div>
+                                                        <div class="col-md-2 col-sm-2 form-group">
+                                                            <label class="control-label">Placeholder</label>
+                                                            <input type="text" placeholder="Masukan Placeholder field" class="form-control" value="<?php echo $field->placeholder; ?>" name="placeholder[]" required>
+                                                        </div>
+                                                        <div class="col-md-2 col-sm-2 form-group">
+                                                            <label class="control-label col-md-2 col-sm-2 col-xs-12">Type</label>
+                                                            <select class="form-control auto_select" value="<?php echo $field->type; ?>" name="type[]" required>
+                                                                <option value="text">Text</option>
+                                                                <option value="select">Select</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-2 col-sm-2 form-group">
+                                                            <label class="control-label">Mandatory</label>
+                                                            <select
+                                                                class="form-control auto_select"
+                                                                value="<?php echo $field->required; ?>"
+                                                                name="mandatory[]"
+                                                            >
+                                                                <option value="false">Tidak Mandatory</option>
+                                                                <option value="required">Mandatory</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <a href="javascript:void(0)" class="btn btn-danger remove-item-field">
+                                                                <i class="fa fa-minus-circle"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                <?php 
+                                                        endforeach;
+                                                    else :
+                                                ?>
+                                                    <p class="text-center field-default">Tidak ada data Field tambahan</p>
+                                                <?php endif; ?>
                                             </div>
                                         </div>
                                         <!-- /Custom Field surat -->
@@ -72,6 +119,7 @@
                             <!-- end loading -->
                         </div>
                         <!-- /.box -->
+                        <?php endforeach; ?>
                     </div>
                 </section>
                 <!-- /.content -->
@@ -165,16 +213,25 @@
                     );
                     btnRemoveField();
                 });
-            } 
+            }
 
             function init() {
                 ajax_form();
+                btnAddField();
+                btnRemoveField();
                 var editor = CKEDITOR.replace('informasi');
                 editor.on('change', function(evt) {
                     $('#informasi').html(evt.editor.getData());
                 });
-                btnRemoveField();
-                btnAddField();
+                $.each($(".auto_select"), function(i, elm){
+                    var itemValue = $(this).attr('value');
+                    if ($(this).hasClass('select2')) {
+                        $(this).val(itemValue);
+                        $(this).trigger('change');
+                    } else {
+                        $(this).find('option[value='+itemValue+']').attr('selected', true);
+                    }
+                });
             }
 
             init();

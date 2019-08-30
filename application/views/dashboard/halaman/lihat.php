@@ -3,70 +3,68 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Halaman Penduduk
-                <a href="<?php echo base_url('/penduduk/tambah_penduduk/'); ?>" class="btn btn-primary">
-                    Tambah Penduduk
+                Halaman
+                <a href="<?php echo base_url('/halaman/tambah/'); ?>" class="btn btn-primary">
+                    Tambah Halaman Baru
                 </a>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="<?php echo base_url('dashboard'); ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-                <li class="active">Penduduk</li>
+                <li class="active">Halaman</li>
             </ol>
         </section>
         <!-- Main content -->
         <section class="content container-fluid">
             <div class="row">
-                <div class="col-md-10">
+                <div class="col-md-12">
                     <div class="box">
                         <div class="box-header">
-                            <h3 class="box-title">Data Penduduk Desa</h3>
+                            <h3 class="box-title">Data Halaman</h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <table id="penduduk" class="table table-bordered table-hover">
+                            <table id="halaman" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
                                         <th>NO</th>
-                                        <th>NIK</th>
-                                        <th>NAMA LENGKAP</th>
-                                        <th>JENIS KELAMIN</th>
-                                        <th>UMUR</th>
-                                        <th>ALAMAT</th>
+                                        <th>NAMA HALAMAN</th>
+                                        <th>PENULIS</th>
+                                        <th>TANGGAL</th>
                                         <th>AKSI</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                         $i = 1;
-                                        foreach ($penduduk as $ak) {
+                                        foreach ($semua_halaman as $halaman) {
                                     ?>
                                         <tr>
                                             <td><?php echo $i; ?></td>
-                                            <td><?php echo $ak->nik; ?></td>
-                                            <td><?php echo $ak->nama_lengkap; ?></td>
+                                            <td><?php echo $halaman->judul; ?></td>
+                                            <td><?php echo $halaman->penulis; ?></td>
                                             <td>
-                                                <?php
-                                                    switch ($ak->jk) {
-                                                        case '1':
-                                                            echo "LAKI-LAKI";
+                                                <?php 
+                                                    switch ($halaman->status) {
+                                                        case 0:
+                                                            echo 'Draft';
                                                             break;
                                                         
                                                         default:
-                                                            echo "PEREMPUAN";
+                                                            echo "Diterbitkan";
                                                             break;
                                                     }
                                                 ?>
+                                                <br>
+                                                <?php echo $halaman->diubah; ?>
                                             </td>
-                                            <td><?php echo $ak->tgl_lahir; ?></td>
-                                            <td><?php echo $ak->alamat; ?></td>
                                             <td>
-                                                <a class="btn btn-info" href="<?php echo base_url('penduduk/details/'.$ak->nik) ?>">
+                                                <a class="btn btn-info" href="<?php echo base_url('halaman/'.$halaman->alias) ?>">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
-                                                <a class="btn btn-primary" href="<?php echo base_url('penduduk/ubah_penduduk/'.$ak->nik); ?>">
+                                                <a class="btn btn-primary" href="<?php echo base_url('halaman/ubah/'.$halaman->id); ?>">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
-                                                <a class="btn btn-danger" href="javascript:void(0)" onClick="deleteField(<?php echo $ak->nik; ?>)">
+                                                <a class="btn btn-danger" href="javascript:void(0)" onClick="deleteField(<?php echo $halaman->id; ?>)">
                                                     <i class="fa fa-trash"></i>
                                                 </a>
                                             </td>
@@ -98,7 +96,7 @@
 <!-- REQUIRED JS SCRIPTS -->
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#penduduk').DataTable({});
+        $('#halaman').DataTable({});
     });
 
     function ajax_form() {
@@ -124,22 +122,22 @@
 
     function reinitDataTable() {
         $.ajax({
-            url : baseUrl+'penduduk/ajax_table'
+            url : baseUrl+'halaman/ajax_table'
         }).done(function(r) {
-            $('#penduduk').DataTable().destroy();
-            $('#penduduk tbody').html(r);
-            $('#penduduk').DataTable({});
+            $('#halaman').DataTable().destroy();
+            $('#halaman tbody').html(r);
+            $('#halaman').DataTable({});
         }).fail(function() {
 
         });
     }
 
     function deleteField(id) {
-        var resultConfirm = confirm('Apakah Anda yakin hapus data penduduk ini?');
+        var resultConfirm = confirm('Apakah Anda yakin hapus data halaman ini?');
         if (resultConfirm) {
             $('#loader').show();
             $.ajax({
-                url : baseUrl+'penduduk/hapus/'+id,
+                url : baseUrl+'halaman/hapus/'+id,
                 dataType : 'JSON'
             }).done(function(r) {
                 reinitDataTable();

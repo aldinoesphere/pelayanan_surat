@@ -40,5 +40,18 @@ class Jenis_surat_model extends CI_Model
 					->get('jenis_surat')
 					->result();
 	}
+
+	public function select_by_kode_surat($kode_surat)
+	{
+		return $this->db
+					->where(
+						[
+							'flag' => 0,
+							'kode_surat' => $kode_surat
+						]
+					)
+					->get('jenis_surat')
+					->result();
+	}
 }
 ?>

@@ -75,7 +75,67 @@
                     </li>
                 </ul>
             </li>
-            <li class="header">PELAYANAN</li>
+            <li class="header">PELAYANAN MASYAKARAT</li>
+            <li <?php echo $this->uri->segment(1) == 'surat' ? 'class="active"' : ''; ?>>
+                <a href="<?php echo base_url('surat'); ?>">
+                    <i class="fa fa-envelope"></i> PERMOHONAN SURAT
+                </a>
+            </li>
+            <li class="header">BLOG</li>
+            <li class="treeview">
+                <a href="#"><i class="fa  fa-file-text-o"></i> <span>Halaman</span>
+                    <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li <?php echo $this->uri->segment(1) == 'halaman' && $this->uri->segment(2) == 'daftar' ? 'class="active"' : ''; ?>>
+                        <a href="<?php echo base_url('halaman/daftar'); ?>">
+                            Daftar Halaman
+                        </a>
+                    </li>
+                    <li <?php echo $this->uri->segment(1) == 'halaman' && $this->uri->segment(2) == 'tambah' ? 'class="active"' : ''; ?>>
+                        <a href="<?php echo base_url('halaman/tambah'); ?>">
+                            Tambah Halaman
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#"><i class="fa fa-bullhorn"></i> <span>Artikel</span>
+                    <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li <?php echo $this->uri->segment(1) == 'artikel' && $this->uri->segment(2) == 'daftar' ? 'class="active"' : ''; ?>>
+                        <a href="<?php echo base_url('artikel/daftar'); ?>">
+                            Daftar Artikel
+                        </a>
+                    </li>
+                    <li <?php echo $this->uri->segment(1) == 'artikel' && $this->uri->segment(2) == 'menu_kategori' ? 'class="active"' : ''; ?>>
+                        <a href="<?php echo base_url('artikel/menu_kategori'); ?>">
+                            Kategori Artikel
+                        </a>
+                    </li>
+                    <li <?php echo $this->uri->segment(1) == 'artikel' && $this->uri->segment(2) == 'tambah' ? 'class="active"' : ''; ?>>
+                        <a href="<?php echo base_url('artikel/tambah'); ?>">
+                            Tambah Artikel
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="header">GALLERY</li>
+            <li <?php echo $this->uri->segment(1) == 'foto' ? 'class="active"' : ''; ?>>
+                <a href="<?php echo base_url('foto'); ?>">
+                    <i class="fa fa-image"></i> FOTO
+                </a>
+            </li>
+            <li <?php echo $this->uri->segment(1) == 'video' ? 'class="active"' : ''; ?>>
+                <a href="<?php echo base_url('video'); ?>">
+                    <i class="fa fa-film"></i> VIDEO
+                </a>
+            </li>
         </ul>
         <!-- /.sidebar-menu -->
     </section>

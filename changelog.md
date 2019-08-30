@@ -8,3 +8,5 @@
 * add module Penduduk
 * add module Kartu Keluarga
 * add module Jenis Surat
+* add module Artikel
+* add module Halaman

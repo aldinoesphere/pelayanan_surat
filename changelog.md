@@ -10,3 +10,6 @@
 * add module Jenis Surat
 * add module Artikel
 * add module Halaman
+* add module Pengaturan Umum
+* add module Banner
+* add module Home Index

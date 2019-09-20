@@ -88,7 +88,7 @@
     <!-- Main Footer -->
     <footer class="main-footer">
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2019 <a href="#">Desa ....</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2019 <a href="#"><?php echo ambil_pengaturan('nama_website'); ?></a>.</strong> All rights reserved.
     </footer>
 </div>
 <!-- ./wrapper -->

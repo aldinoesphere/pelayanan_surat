@@ -159,7 +159,7 @@
         </section>
     </div>
     <footer class="main-footer">
-        <strong>Copyright &copy; 2019 <a href="#">Desa ....</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2019 <a href="#"><?php echo ambil_pengaturan('nama_website'); ?></a>.</strong> All rights reserved.
     </footer>
 </div>
 <?php $this->load->view('dashboard/_parts/js'); ?>

@@ -136,6 +136,26 @@
                     <i class="fa fa-film"></i> VIDEO
                 </a>
             </li>
+            <li class="header"></li>
+            <li class="treeview">
+                <a href="#"><i class="fa fa-gear"></i> <span>Pengaturan</span>
+                    <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li <?php echo $this->uri->segment(1) == 'pengaturan' && $this->uri->segment(2) == 'umum' ? 'class="active"' : ''; ?>>
+                        <a href="<?php echo base_url('pengaturan/umum'); ?>">
+                            Umum
+                        </a>
+                    </li>
+                    <li <?php echo $this->uri->segment(1) == 'pengaturan' && $this->uri->segment(2) == 'banner' ? 'class="active"' : ''; ?>>
+                        <a href="<?php echo base_url('pengaturan/banner'); ?>">
+                            Banner
+                        </a>
+                    </li>
+                </ul>
+            </li>
         </ul>
         <!-- /.sidebar-menu -->
     </section>

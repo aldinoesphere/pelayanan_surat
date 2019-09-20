@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 30, 2019 at 10:47 AM
+-- Generation Time: Sep 20, 2019 at 09:50 AM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 7.0.30
 
@@ -45,6 +45,27 @@ INSERT INTO `agama` (`id`, `kode_agama`, `nama_agama`) VALUES
 (4, '04', 'HINDU'),
 (5, '05', 'BUDHA'),
 (6, '06', 'KONGHUCU');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `banners`
+--
+
+CREATE TABLE `banners` (
+  `id` int(11) NOT NULL,
+  `link_banner` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `banners`
+--
+
+INSERT INTO `banners` (`id`, `link_banner`) VALUES
+(1, 'LXeVo1qYhQjK9Jlldyvm.jpg'),
+(2, 'kN9pAcaWDfFlGNBeuaqG.jpg'),
+(3, 'ed8iDibaWexTQoGyAAzL.jpg'),
+(4, 'RbFAU1XErrU1FitjjV8B.jpg');
 
 -- --------------------------------------------------------
 
@@ -232,6 +253,34 @@ INSERT INTO `penduduk` (`nik`, `no_kk`, `nama_lengkap`, `jk`, `tempat_lahir`, `t
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `pengaturan`
+--
+
+CREATE TABLE `pengaturan` (
+  `id` int(11) NOT NULL,
+  `nama_pengaturan` varchar(50) NOT NULL,
+  `pengaturan` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pengaturan`
+--
+
+INSERT INTO `pengaturan` (`id`, `nama_pengaturan`, `pengaturan`) VALUES
+(1, 'nama_website', 'Desa Jatisawit Lor | Lohbener'),
+(2, 'instagram', 'https://www.instagram.com/jatisawitlor/'),
+(3, 'facebook', 'https://www.facebook.com/jatisawit.lor'),
+(4, 'email_admin', 'aldinosaid@gmail.com'),
+(5, 'twitter', 'https://twitter.com/jatisawit_lor'),
+(6, 'link_banner', 'oq79tUU6TFAUDgSW9NZ1pSDuS.jpg'),
+(7, 'alamat', '                                                        <p>Jalan Jatisawit - Jatibarang no. xx,</p>\r\n\r\n<p>Jatisawit, Kabupaten Indramayu, Jawa Barat 45273</p>\r\n                                                    '),
+(8, 'no_tlp', '+6289695464262'),
+(9, 'profil_desa', '<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>\r\n'),
+(10, 'profil_lembaga', '<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>\r\n');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `post`
 --
 
@@ -255,9 +304,11 @@ CREATE TABLE `post` (
 --
 
 INSERT INTO `post` (`id`, `judul`, `alias`, `konten`, `post_thumbnail`, `kategori`, `tipe`, `penulis`, `dibuat`, `diubah`, `status`, `induk`) VALUES
-(1, 'Penanaman seribu pohon di desa bojong kokok', 'penanaman-seribu-pohon-di-desa-bojong-kokok', '                                                                                                                        <p><em>dsfege</em></p>\r\n                                                                                                                ', '', 1, 'artikel', 1, '2019-08-29 19:29:27', '2019-08-30 10:27:41', 1, 0),
-(2, 'PROFIL', 'profil', '', '', 0, 'halaman', 1, '2019-08-30 10:29:18', '2019-08-30 10:29:18', 1, 0),
-(3, 'PROFIL LEMBAGA', 'profil-lembaga', '                                                                                                                    ', '', 0, 'halaman', 1, '2019-08-30 10:29:51', '2019-08-30 10:30:07', 1, 0);
+(1, 'Penanaman seribu pohon di desa bojong kokok', 'penanaman-seribu-pohon-di-desa-bojong-kokok', '                                                                                                                                                                                                                                                                                                            <p><em>dsfege</em></p>\r\n                                                                                                                                                                                                                                                                                        ', 'HsP4ryyzGV.jpg', 1, 'artikel', 1, '2019-08-29 19:29:27', '2019-09-10 08:46:01', 1, 0),
+(2, 'PROFIL', 'profil', '                                                                                                                    ', 'JptWkGvsRN.jpg', 0, 'halaman', 1, '2019-08-30 10:29:18', '2019-09-11 19:19:21', 1, 0),
+(3, 'PROFIL LEMBAGA', 'profil-lembaga', '                                                                                                                                                                                                                                        ', 'AIWs3cESLR.jpg', 0, 'halaman', 1, '2019-08-30 10:29:51', '2019-09-11 19:19:39', 1, 0),
+(4, 'test', 'test', '                                                                                                                                                                                    <p><s>vdfgdg</s></p>\r\n                                                                                                                                                                        ', 'MfXoHFPedr.jpg', 1, 'artikel', 1, '2019-09-10 09:20:06', '2019-09-10 09:31:44', 1, 0),
+(5, 'Memancing di sungai', 'memancing-di-sungai', '<p>vbdfvdfb <s>fvdfbfdbgb</s></p>\r\n', 'Bc4YwFsEiS.jpg', 1, 'artikel', 1, '2019-09-10 09:36:53', '2019-09-10 09:36:53', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -329,6 +380,12 @@ ALTER TABLE `agama`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `banners`
+--
+ALTER TABLE `banners`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `hubungan`
 --
 ALTER TABLE `hubungan`
@@ -372,6 +429,12 @@ ALTER TABLE `penduduk`
   ADD PRIMARY KEY (`nik`);
 
 --
+-- Indexes for table `pengaturan`
+--
+ALTER TABLE `pengaturan`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `post`
 --
 ALTER TABLE `post`
@@ -404,6 +467,12 @@ ALTER TABLE `trans_surat`
 --
 ALTER TABLE `agama`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `banners`
+--
+ALTER TABLE `banners`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `hubungan`
@@ -442,10 +511,16 @@ ALTER TABLE `pendidikan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT for table `pengaturan`
+--
+ALTER TABLE `pengaturan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `status_kawin`

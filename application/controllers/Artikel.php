@@ -81,6 +81,56 @@ class Artikel extends CI_Controller {
 		echo json_encode($return);
 	}
 
+	public function upload_image() {
+		$imageThumb = $this->input->post('imageThumb');
+	    $search = [
+	    	'data:image/png;base64,',
+	    	'data:image/jpg;base64,',
+	    	'data:image/jpeg;base64,',
+	    	'data:image/gif;base64,'
+	    ];
+	    $find = [
+	    	'',
+	    	'',
+	    	'',
+	    	''
+	    ];
+	    $imageThumb = str_replace($search, $find, $imageThumb);
+	    $imageThumb = str_replace(' ', '+', $imageThumb);
+	    $data = base64_decode($imageThumb);
+	    $newName = random_string(10) . '.jpg';
+	    $patchOriginal = 'uploads/images/post/original/' . $newName;
+	    $patchThumbnail = 'uploads/images/post/thumbnail/' . $newName;
+	    $upload = uploadOriginalImage($data)
+		   			->save($patchOriginal);
+		if (!$upload) {
+			$result = [
+		    	'status' => false,
+		    	'cls' => 'failed',
+				'msg' => 'Upload thumbnail gagal'
+		    ];
+		}
+
+		$uploadThumbnail = uploadThumbImage($data)
+							->save($patchThumbnail);
+		if (!$uploadThumbnail) {
+			$result = [
+		    	'status' => false,
+		    	'cls' => 'failed',
+				'msg' => 'Upload thumbnail gagal'
+		    ];
+		}
+
+		if ($upload && $uploadThumbnail) {
+			$result = [
+		    	'status' => true,
+		    	'value'	 => base_url($patchOriginal),
+		    	'fileName'	 => $newName
+		    ];
+		}
+	    echo json_encode($result);
+	}
+
 	public function hapus_kategori($id)
 	{
 		if ($this->artikel_model->delete_category($id))
@@ -234,6 +284,11 @@ class Artikel extends CI_Controller {
 	public function ubah_artikel($id)
 	{
 		$inputs = $this->input->post();
+		
+		if ($_FILES['post_thumbnail']['size'] > 0) {
+			
+		}
+
 		$data = [];
 		$data = array_merge_recursive(
 			$inputs,

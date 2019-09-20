@@ -1,13 +1,15 @@
 <?php
+include APPPATH . "third_party/ImageResize.php";
+use \Eventviva\ImageResize;
 
 function cnull($value)
 {
     return (empty($value))?'':$value;
 }
 
-function shop_version()
+function application_version()
 {
-    return "Rina Accessories Store - V1.0.01";
+    return "Desa Jatisawit Lor - V0.0.01";
 }
 
 function user_level($user_level)
@@ -190,8 +192,6 @@ function paginate($total, $per_page = 20, $uri_key = 'page', $link_suffix = '')
     if ($is_odd) {
         $base_url = $CI->uri->segment(1) . '/' . $base_url;
     }
-    // var_dump($is_odd);exit();
-    // echo $base_url;exit();
 
     $config['base_url'] = site_url($base_url);
     $config['per_page'] = $per_page;
@@ -365,4 +365,27 @@ function get_alias($judul = '')
         $alias = str_ireplace(' ', '-', strtolower($judul));
     }
     return $alias;
+}
+
+function uploadProporsionalThumbnail($file = null){
+    $image = ImageResize::createFromString($file);
+    $image->scale(65);
+    return $image;
+}
+
+function ambil_pengaturan($key)
+{
+    $CI = get_instance();
+    $CI->load->model('pengaturan_model');
+    $pengaturan = $CI->pengaturan_model->get_settings();
+    if (!empty($pengaturan[$key])) {
+        return $pengaturan[$key];
+    } else {
+        return '';
+    }
+}
+
+function uploadBanner($file = null){
+    $image = ImageResize::createFromString($file);
+    return $image->resize(1920, 1000);
 }

@@ -63,9 +63,16 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="gambar">Unggah Gambar</label>
-                                                <button class="btn btn-default btn-block" type="button">Unggah Gambar</button>
-                                                <input type="file" name="thumbnail" class="hidden">
-                                                <input type="hidden" name="post_thumbnail">
+                                                <button class="btn btn-default btn-block btn-upload" type="button">Unggah Gambar</button>
+                                                <input type="file" name="thumbnail" id="thumbnail" class="hidden">
+                                                <input type="text" name="post_thumbnail" class="hidden">
+                                            </div>
+                                            <div class="form-group display-image">
+                                                <?php if ($value->post_thumbnail) : ?>
+                                                    <img src="<?php echo base_url('uploads/images/post/original/'.$value->post_thumbnail); ?>">
+                                                <?php else : ?>
+                                                    <img src="<?php echo base_url('assets/dist/img/avatar.png'); ?>">
+                                                <?php endif; ?>
                                             </div>
                                             <div class="form-group">
                                                 <label for="induk">Halaman Induk</label>
@@ -92,7 +99,7 @@
             <!-- Main Footer -->
             <footer class="main-footer">
                 <!-- Default to the left -->
-                <strong>Copyright &copy; 2019 <a href="#">Desa ....</a>.</strong> All rights reserved.
+                <strong>Copyright &copy; 2019 <a href="#"><?php echo ambil_pengaturan('nama_website'); ?></a>.</strong> All rights reserved.
             </footer>
         </div>
         <!-- ./wrapper -->
@@ -132,8 +139,49 @@
                 $("#form_halaman")[0].reset();
             }
 
+            function init_btn_upload() {
+                $('.btn-upload').click(function(){
+                    var postThumbnailUpload = document.getElementById('thumbnail');
+                    postThumbnailUpload.click();
+                });
+
+                $('#thumbnail').on('change', function(){
+                    uploadThumbnail(this);
+                });
+            }
+
+            function uploadThumbnail(input){
+                if (input.files[0]) {
+                    var reader = new FileReader();
+                    var formData = new FormData();
+                    reader.onload = function (e) {
+                        var data = {
+                            'imageThumb' : e.target.result
+                        }
+                        $.ajax({
+                            url         : baseUrl+'artikel/upload_image',
+                            type        : "POST",
+                            dataType: "json",
+                            data        : data
+                        }).done(function(r){
+                            if (r.status) {
+                                var displayImage = '<img src="'+r.value+'">';
+                                $('.display-image').html(displayImage);
+                                $('[name=post_thumbnail]').val(r.fileName);
+                            } else {
+                                $.notify(r.msg, r.cls);
+                            }
+                        }).fail(function(error){
+
+                        }); 
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
             function init() {
                 ajax_form();
+                init_btn_upload();
                 var editor = CKEDITOR.replace('konten');
                 editor.on('change', function(evt) {
                     $('#konten').html(evt.editor.getData());

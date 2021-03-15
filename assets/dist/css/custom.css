@@ -1,0 +1,50 @@
+.display-image {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.display-image img {
+	width: 100%;
+	height: auto;
+}
+
+.display-thumb > img, .banner-thumb > img {
+    width: 100%;
+    border:2px solid #bbb;
+    position: relative;
+    cursor: pointer;
+}
+.display-thumb > .btn-remove {
+    position: absolute;
+    color: #ff3131;
+    font-size: 25px;
+    right: 20px;
+    cursor: pointer;
+    z-index: 1;
+}
+.display-thumb > .btn-remove:hover {
+    color: #ff7777;
+}
+.preview > img {
+    width: 250px;
+    height: 250px;
+}
+.icon-group {
+    position: absolute;
+}
+.preview {
+    position: relative;
+    float: left;
+}
+.btn-transparen {
+    background-color: #fff;
+    opacity: 0.9;
+    color: #dad0d0;
+}
+.btn-remove {
+    position: absolute;
+    right: 0;
+    top: 25px;
+}

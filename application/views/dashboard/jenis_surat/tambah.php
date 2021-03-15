@@ -3,27 +3,30 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Tambah <?php echo $page_active['value']; ?>
+                        Tambah Jenis Surat
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo base_url('dashboard'); ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-                        <li class="active"><?php echo $page_active['value']; ?></li>
+                        <li class="active">Jenis Surat</li>
                         <li class="active">Tambah</li>
                     </ol>
                 </section>
 
                 <!-- Main content -->
                 <section class="content container-fluid">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="box">
                             <!-- general form elements -->
                             <div class="box box-primary">
-                                <div class="box-header with-border">
-                                    <h3 class="box-title">Form <?php echo $page_active['value']; ?></h3>
+                                <div class="box-header">
+                                    <h3 class="box-title">Masukan Data Jenis Surat</h3>
+                                    <div class="pull-right box-tools">
+                                        <a class="btn btn-primary" href="<?php echo base_url('jenis_surat'); ?>"><i class="fa fa-mail-reply"></i></a>
+                                    </div>
                                 </div>
                                 <!-- /.box-header -->
                                 <!-- form start -->
-                                <form role="form" id="form_kk" action="<?php echo base_url('jenis_surat/simpan_surat'); ?>">
+                                <form role="form" id="form_jenis_surat" action="<?php echo base_url('jenis_surat/simpan_surat'); ?>">
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label for="kode_surat">KODE SURAT</label>
@@ -34,15 +37,25 @@
                                             <input type="text" class="form-control" id="nama_surat" name="nama_surat" placeholder="NAMA SURAT" required>
                                         </div>
                                         <div class="form-group">
-                                            <label for="prihal">PRIHAL</label>
-                                            <input type="text" class="form-control" id="prihal" name="prihal" placeholder="PRIHAL" required>
-                                        </div>
-                                        <div class="form-group">
                                             <label for="informasi">INFORMASI</label>
                                             <textarea id="informasi" name="informasi" rows="10" cols="80">
-                                                
                                             </textarea>
                                         </div>
+                                        <div class="form-group">
+                                            <label for="upload-template"><i class="fa fa-upload"></i> Unggah Template Surat</label>
+                                            <input type="file" id="file-add-template" accept="rtf" name="file-template">
+                                        </div>
+                                        <hr>
+                                        <!-- Custom Field surat -->
+                                        <div class="form-group text-right">
+                                            <a href="javascript:void(0)" class="btn btn-primary add-field"> PERSYARATAN SURAT <i class="fa fa-plus-circle"></i></a>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-builder">
+                                                <p class="text-center field-default">Tidak ada data persyaratan</p>
+                                            </div>
+                                        </div>
+                                        <!-- /Custom Field surat -->
                                     </div>
                                     <!-- /.box-body -->
                                     <div class="box-footer">
@@ -70,36 +83,71 @@
             </footer>
         </div>
         <!-- ./wrapper -->
-        <?php $this->load->view('dashboard/js'); ?>
+        <?php $this->load->view('dashboard/_parts/js'); ?>
         <script src="<?php echo base_url(); ?>assets/bower_components/ckeditor/ckeditor.js"></script>
         <!-- REQUIRED JS SCRIPTS -->
         <script type="text/javascript">
             function ajax_form() {
-                $('#form_kk').on('submit', function(e) {
+                $('#form_jenis_surat').on('submit', function(e) {
                     e.preventDefault();
                     $('.form-loading').show();
-                    data = $(this).serialize();
                     $.ajax({
                         url : $(this).attr('action'),
                         dataType : 'JSON',
                         type : "POST",
-                        data : data
+                        data : new FormData(this),
+                        processData :false,
+                        contentType :false,
+                        cache :false
                     }).done(function(r) {
                         $('.form-loading').hide();
-                        if (r.cls == 'success') {
-                            alert(r.msg);
-                        } else {
-                            alert(r.msg);
-                        }
+                        $.notify(r.msg, r.cls);
                     }).fail(function() {
                         $('.form-loading').hide();
                     });
                 });
             }
 
+            function btnRemoveField() {
+                var removeGrosir = document.querySelectorAll('.remove-item-field'); 
+                [].forEach.call(removeGrosir, function(elm) {
+                    $(elm).click(function(){
+                        var itemField = $(this).closest('.item-field');
+                        $(itemField).remove();
+                        if ($('.item-field').length <= 0) {
+                            $('.form-builder').html('<p class="text-center field-default">Tidak ada data persyaratan</p>');
+                        }
+                    });
+                });
+            }
+
+
+            function btnAddField() {
+                $('.add-field').click(function(){
+                    if ($('.field-default')) {
+                        $('.field-default').remove();
+                    }
+                    $.ajax({
+                        url : baseUrl+'jenis_surat/ajax_persyaratan_surat',
+                        dataType : 'JSON'
+                    }).done(function(r) {
+                        $('.form-builder').append(r.html);
+                        $(".select2").select2();
+                        btnRemoveField();
+                    }).fail(function() {
+                        btnRemoveField();
+                    });
+                });
+            } 
+
             function init() {
                 ajax_form();
-                CKEDITOR.replace('informasi');
+                btnRemoveField();
+                var editor = CKEDITOR.replace('informasi');
+                editor.on('change', function(evt) {
+                    $('#informasi').html(evt.editor.getData());
+                });
+                btnAddField();
             }
 
             init();

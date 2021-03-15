@@ -3,11 +3,11 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Halaman <?php echo $page_active['value']; ?>
+                        Halaman Jenis Surat
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo base_url('dashboard'); ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-                        <li class="active"><?php echo $page_active['value']; ?></li>
+                        <li class="active">Jenis Surat</li>
                     </ol>
                 </section>
 
@@ -16,7 +16,7 @@
                     <div class="col-md-10">
                         <div class="box">
                             <div class="box-header">
-                                <h3 class="box-title">Data <?php echo $page_active['value']; ?></h3>
+                                <h3 class="box-title">Data Jenis Surat</h3>
                             </div>
                             <!-- /.box-header -->
                             <div class="box-body">
@@ -26,26 +26,37 @@
                                             <th>ID</th>
                                             <th>KODE SURAT</th>
                                             <th>NAMA SURAT</th>
-                                            <th>PRIHAL</th>
+                                            <th>FILE TEMPLATE</th>
                                             <th>AKSI</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
+                                            $i = 1;
                                             foreach ($jenis_surat as $surat) {
                                         ?>
                                             <tr>
-                                                <td><?php echo $surat->id; ?></td>
+                                                <td><?php echo $i; ?></td>
                                                 <td><?php echo $surat->kode_surat; ?></td>
                                                 <td><?php echo $surat->nama_surat; ?></td>
-                                                <td><?php echo $surat->prihal; ?></td>
                                                 <td>
-                                                    <a href="#"><i class="fa fa-eye"></i></a> |
-                                                    <a href="#"><i class="fa fa-pencil"></i></a> |
-                                                    <a href="#"><i class="fa fa-trash"></i></a>
+                                                    <?php
+                                                        if (!$surat->file_template) {
+                                                            echo "-";
+                                                        } else {
+                                                            echo $surat->file_template;
+                                                        }
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-primary" href="<?php echo base_url('jenis_surat/ubah/'.$surat->id); ?>">
+                                                        <i class="fa fa-pencil"></i>
+                                                    </a>
+                                                    <button type="button" class="btn btn-danger" onClick="deleteField(<?php echo $surat->id; ?>)"><i class="fa fa-trash"></i></button>
                                                 </td>
                                             </tr>
                                         <?php
+                                            $i++;
                                             }
                                         ?>
                                     </tbody>
@@ -65,21 +76,44 @@
             <!-- Main Footer -->
             <footer class="main-footer">
                 <!-- Default to the left -->
-                <strong>Copyright &copy; 2019 <a href="#">Desa Tunggul Payung</a>.</strong> All rights reserved.
+                <strong>Copyright &copy; 2019 <a href="#"><?php echo ambil_pengaturan('nama_website'); ?></a>.</strong> All rights reserved.
             </footer>
         </div>
         <!-- ./wrapper -->
-        <?php $this->load->view('dashboard/js'); ?>
+        <?php $this->load->view('dashboard/_parts/js'); ?>
         <!-- REQUIRED JS SCRIPTS -->
         <script type="text/javascript">
-            $(document).load(function() {
-                $('#jenis_surat').DataTable({
-                  'paging'      : true,
-                  'lengthChange': false,
-                  'searching'   : false,
-                  'ordering'    : true,
-                  'info'        : true,
-                  'autoWidth'   : false
-                })
+            $(document).ready(function() {
+                $('#jenis_surat').DataTable({})
             });
+
+            function reinitDataTable() {
+                $.ajax({
+                    url : baseUrl+'jenis_surat/ajax_table'
+                }).done(function(r) {
+                    $('#jenis_surat').DataTable().destroy();
+                    $('#jenis_surat tbody').html(r);
+                    $('#jenis_surat').DataTable({});
+                    cancel();
+                }).fail(function() {
+
+                });
+            }
+
+            function deleteField(id) {
+                var resultConfirm = confirm('Apakah Anda yakin hapus jenis surat ini?');
+                if (resultConfirm) {
+                    $('#loader').show();
+                    $.ajax({
+                        url : baseUrl+'jenis_surat/hapus/'+id,
+                        dataType : 'JSON'
+                    }).done(function(r) {
+                        reinitDataTable();
+                        $('#loader').hide();
+                        $.notify(r.msg, r.cls);
+                    }).fail(function() {
+                        $('#loader').hide();
+                    });
+                }
+            }
         </script>

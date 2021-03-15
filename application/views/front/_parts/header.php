@@ -44,7 +44,7 @@
             <li><a href="#blog" class="page-scroll">Blog</a></li>
             <li><a href="#sejarah" class="page-scroll">Profil</a></li>
             <li><a href="#gallery" class="page-scroll">Gallery</a></li>
-            <li><a href="#pegawai" class="page-scroll">Pegawai</a></li>
+            <li><a href="#anggota" class="page-scroll">Anggota</a></li>
             <li><a href="#contact" class="page-scroll">Contact</a></li>
           </ul>
         </div>

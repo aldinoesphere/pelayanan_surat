@@ -65,7 +65,7 @@
                                                 <label for="gambar">Unggah Gambar</label>
                                                 <button class="btn btn-default btn-block btn-upload" type="button">Unggah Gambar</button>
                                                 <input type="file" name="thumbnail" id="thumbnail" class="hidden">
-                                                <input type="text" name="post_thumbnail" class="hidden" value="<?php echo $value->post_thumbnail; ?>">
+                                                <input type="text" name="post_thumbnail" class="hidden">
                                             </div>
                                             <div class="form-group display-image">
                                                 <?php if ($value->post_thumbnail) : ?>

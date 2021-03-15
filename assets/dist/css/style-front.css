@@ -416,39 +416,39 @@ ol.type li a:hover {
 	opacity: 1;
 }
 /* Team Section */
-#pegawai {
+#anggota {
 	color: #fff;
 	background: #444 url(../img/team-bg.jpg) center top no-repeat fixed;
 	background-size: cover;
 }
-#pegawai .overlay {
+#anggota .overlay {
 	padding: 120px 0 80px 0;
 	background: rgba(0, 0, 0, 0.6);
 }
-#pegawai h2, #pegawai p {
+#anggota h2, #anggota p {
 	color: #fff;
 }
-#pegawai hr {
+#anggota hr {
 	background: #fff;
 }
-#pegawai h3 {
+#anggota h3 {
 	color: #fff;
 	font-weight: 400;
 	font-size: 20px;
 	margin: 5px 0;
 }
-#pegawai img {
+#anggota img {
 	width: 280px;
 }
-#pegawai .thumbnail {
+#anggota .thumbnail {
 	background: transparent;
 	border: 0;
 }
-#pegawai .thumbnail .team-img {
+#anggota .thumbnail .team-img {
 	display: inline-block;
 	position: relative;
 }
-#pegawai .thumbnail .team-img:before {
+#anggota .thumbnail .team-img:before {
 	display: block;
 	content: '';
 	position: absolute;
@@ -458,10 +458,10 @@ ol.type li a:hover {
 	left: 8px;
 	border: 1px solid rgba(255, 255, 255, 0.2);
 }
-#pegawai .thumbnail .caption {
+#anggota .thumbnail .caption {
 	padding-top: 10px;
 }
-#pegawai .thumbnail .caption p {
+#anggota .thumbnail .caption p {
 	color: rgba(255,255,255,0.7);
 	padding: 0 10px;
 	font-size: 15px;
@@ -624,7 +624,7 @@ color: #777;
     width: 100%;
     height: 100%;
 }
-.pegawai .swiper-slide {
+.anggota .swiper-slide {
     text-align: center;
     font-size: 18px;
     background: #fff;
@@ -685,7 +685,7 @@ color: #777;
     background-size: 100%;
     background-repeat: no-repeat;
 	}
-	.pegawai .swiper-slide {
+	.anggota .swiper-slide {
     text-align: center;
     font-size: 18px;
     background: #fff;
@@ -712,79 +712,4 @@ color: #777;
 img.image-thumbnail {
     width: 100%;
     height: auto;
-}
-
-.image-container {
-    display: flex;
-}
-.image-wrap {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    justify-content: center;
-}
-.image-wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.content {
-    margin-top: 30px;
-}
-
-.post-content {max-height: 224px;margin-bottom: 15px;}
-
-.box {
-    position: relative;
-    border-radius: 3px;
-    background: #ffffff;
-    border-top: 3px solid #d2d6de;
-    margin-bottom: 20px;
-    width: 100%;
-    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
-}
-
-.box.box-primary {
-    border-top-color: #3c8dbc;
-}
-
-.box-header {
-    color: #444;
-    display: block;
-    padding: 10px;
-    position: relative;
-}
-
-.box-header:before, .box-body:before, .box-footer:before, .box-header:after, .box-body:after, .box-footer:after {
-    content: " ";
-    display: table;
-}
-
-.box-header>.fa, .box-header>.glyphicon, .box-header>.ion, .box-header .box-title {
-    display: inline-block;
-    font-size: 18px;
-    margin: 0;
-    line-height: 1;
-}
-
-.box-header:after, .box-body:after, .box-footer:after {
-    clear: both;
-}
-
-.menu-section.pelayanan-surat {
-    margin: 0 20px 80px;
-}
-
-.pelayanan-surat .menu-section-title {
-    font-size: 26px;
-    display: block;
-    font-weight: 500;
-    color: #444;
-    margin: 20px 0;
-    text-align: center;
-}
-
-.pelayanan-surat hr {
-    margin: 0 auto;
 }

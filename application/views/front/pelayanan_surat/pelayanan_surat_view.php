@@ -1,48 +1,65 @@
-<div id="single-post">
-	<div class="row">
-		<div class="section-title text-center center">
-	        <div class="overlay">
-	        </div>
-	    </div>
-	</div>
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12 col-sm-12">
-				<div class="menu-section pelayanan-surat">
-					<h2 class="menu-section-title">LAYANAN PERMOHONAN SURAT</h2>
-					<hr>
-				</div>
-				<form id="form_pelayanan_surat" enctype="multipart/form-data" action="<?php echo base_url('pelayanan_surat/simpan_data'); ?>" method="POST">
-					<div class="row">
-						<div class="col-md-6 col-sm-12">
-							<div class="form-group">
-								<label for="jenis_surat">JENIS SURAT YANG DIMOHON</label>
-								<select class="form-control" name="jenis_surat">
-									<option value="0">- PILIH JENIS SURAT -</option>
-									<?php foreach ($jenis_surat as $surat) :?>
-									<option value="<?php echo $surat->kode_surat; ?>"><?php echo $surat->nama_surat; ?></option>
-									<?php endforeach;?>
-								</select>
-							</div>
-							<div class="form-group">
-					        	<label for="keterangan">KETERANGAN TAMBAHAN</label>
-					        	<textarea class="form-control" name="keterangan"></textarea>
-					        </div>
-							<div class="form-group">
-					        	<label for="no_hp">NOMOR TELP / HP</label>
-					        	<input type="text" name="no_hp" class="form-control">
-					        </div>
-						</div>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HALAMAN PELAYANAN SURAT</title>
+	<!-- Bootstrap -->
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Admin LTE CSS -->
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/dist/css/AdminLTE.min.css">
+</head>
+<body>
+	<div class="wrapper">
+		<div class="content-wrapper">
+			<div class="col-md-6">
+				<!-- callout -->
+				<?php
+					if ($this->session->flashdata('error')) :
+				?>
+					<div class="callout callout-danger" id="informasi">
+						<?php echo $this->session->flashdata('error'); ?>
+		        	</div>
+				<?php endif; ?>
+		        <div class="callout callout-info" id="informasi">
+
+		        </div>
+		        <form id="form_pelayanan_surat" action="<?php echo base_url('pelayanan_surat/simpan_data'); ?>" method="POST">
+			        <div class="form-group">
+			        	<label for="nik">Masukan NIK pemohon</label>
+			        	<input type="text" name="nik" class="form-control">
+			        </div>
+					<div class="form-group">
+						<label for="jenis_surat">Jenis surat</label>
+						<select class="form-control" name="jenis_surat">
+							<?php foreach ($jenis_surat as $surat) :?>
+							<option value="<?php echo $surat->kode_surat; ?>"><?php echo $surat->nama_surat; ?></option>
+							<?php endforeach;?>
+						</select>
 					</div>
-					<div class="row">
-						<div class="ajax_load_form">
+					<div class="ajax_load_form">
 						
-						</div>
 					</div>
-					<button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> KIRIM</button>
-					<button class="btn btn-danger"><i class="fa fa-times"></i> BATAL</button>
 				</form>
-            </div>
+			</div>
 		</div>
 	</div>
-</div>
+</body>
+<!-- jQuery 3 -->
+<script src="<?php echo base_url(); ?>assets/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="<?php echo base_url(); ?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- DataTables -->
+<script type="text/javascript">var baseUrl = '<?php echo base_url(); ?>';</script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('[name=jenis_surat]').change(function(){
+			$.ajax({
+				url : baseUrl+'pelayanan_surat/ajax_load_form/'+this.value,
+				dataType:'JSON'
+			}).done(function(r) {
+				$('.ajax_load_form').html(r.html);
+				$('#informasi').html(r.informasi);
+			});
+		});
+	});
+</script>
+</html>

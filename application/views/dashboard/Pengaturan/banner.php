@@ -75,6 +75,27 @@
         $('#banner').DataTable({});
     });
 
+    function ajax_form() {
+        $('#form_kk').on('submit', function(e) {
+            e.preventDefault();
+            var form = this;
+            $('.form-loading').show();
+            data = $(this).serialize();
+            $.ajax({
+                url : $(this).attr('action'),
+                dataType : 'JSON',
+                type : "POST",
+                data : data
+            }).done(function(r) {
+                reinitDataTable();
+                $('.form-loading').hide();
+                $.notify(r.msg, r.cls);
+            }).fail(function() {
+                $('.form-loading').hide();
+            });
+        });
+    }
+
     function reinitDataTable() {
         $.ajax({
             url : baseUrl+'pengaturan/banner_ajax_table'
@@ -105,7 +126,7 @@
     }
 
     function init() {
-        
+        ajax_form();
     }
 
     init();

@@ -50,30 +50,46 @@
                                         <hr>
                                         <!-- Custom Field surat -->
                                         <div class="form-group text-right">
-                                            <a href="javascript:void(0)" class="btn btn-primary add-field"> PERSYARATAN SURAT <i class="fa fa-plus-circle"></i></a>
+                                            <a href="javascript:void(0)" class="btn btn-primary add-field"> Field Surat <i class="fa fa-plus-circle"></i></a>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-builder">
                                                 <?php
-                                                    if ($persyaratan) : 
-                                                        foreach ($persyaratan as $syarat) :
+                                                    if ($form_field) : 
+                                                        foreach ($form_field as $field) :
                                                 ?>
                                                     <div class="item-field col-md-12">
-                                                        <div class="col-md-10 col-sm-10 form-group">
-                                                            <label class="control-label">PERSYARATAN</label>
-                                                            <select class="form-control select2 auto_select" value="<?php echo $syarat; ?>" name="persyaratan[]">
-                                                                <?php
-                                                                    foreach ($persyaratan_surat as $ps) {
-                                                                ?>
-                                                                    <option value="<?php echo $ps->id; ?>">
-                                                                        <?php echo $ps->nama_persyaratan; ?>
-                                                                    </option>
-                                                                <?php
-                                                                    }
-                                                                ?>
+                                                        <div class="col-md-2 col-sm-2 form-group">
+                                                            <label class="control-label">ID</label>
+                                                            <input type="text" placeholder="Masukan ID element field" class="form-control" value="<?php echo $field->id; ?>" name="id[]" required>
+                                                        </div>
+                                                        <div class="col-md-2 col-sm-2 form-group">
+                                                            <label class="control-label">Nama label</label>
+                                                            <input type="text" placeholder="Masukan nama label field" class="form-control" value="<?php echo $field->label; ?>" name="label[]" required>
+                                                        </div>
+                                                        <div class="col-md-2 col-sm-2 form-group">
+                                                            <label class="control-label">Placeholder</label>
+                                                            <input type="text" placeholder="Masukan Placeholder field" class="form-control" value="<?php echo $field->placeholder; ?>" name="placeholder[]" required>
+                                                        </div>
+                                                        <div class="col-md-2 col-sm-2 form-group">
+                                                            <label class="control-label col-md-2 col-sm-2 col-xs-12">Type</label>
+                                                            <select class="form-control auto_select" value="<?php echo $field->type; ?>" name="type[]" required>
+                                                                <option value="text">Text</option>
+                                                                <option value="select">Select</option>
                                                             </select>
                                                         </div>
-                                                        <div class="col-md-2 btn-remove">
+                                                        <div class="col-md-2 col-sm-2 form-group">
+                                                            <label class="control-label">Mandatory</label>
+                                                            <select
+                                                                class="form-control auto_select"
+                                                                value="<?php echo $field->required; ?>"
+                                                                name="mandatory[]"
+                                                            >
+                                                                <option value="false">Tidak Mandatory</option>
+                                                                <option value="required">Mandatory</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-2">
                                                             <a href="javascript:void(0)" class="btn btn-danger remove-item-field">
                                                                 <i class="fa fa-minus-circle"></i>
                                                             </a>
@@ -160,16 +176,42 @@
                     if ($('.field-default')) {
                         $('.field-default').remove();
                     }
-                    $.ajax({
-                        url : baseUrl+'jenis_surat/ajax_persyaratan_surat',
-                        dataType : 'JSON'
-                    }).done(function(r) {
-                        $('.form-builder').append(r.html);
-                        $(".select2").select2();
-                        btnRemoveField();
-                    }).fail(function() {
-                        btnRemoveField();
-                    });
+                    $('.form-builder').append(
+                        '<div class="item-field col-md-12">'
+                            +'<div class="col-md-2 col-sm-2 form-group">'
+                                +'<label class="control-label">ID</label>'
+                                +'<input type="text" placeholder="Masukan ID element field" class="form-control" name="id[]" required>'
+                            +'</div>'
+                            +'<div class="col-md-2 col-sm-2 form-group">'
+                                +'<label class="control-label">Nama label</label>'
+                                +'<input type="text" placeholder="Masukan nama label field" class="form-control" name="label[]" required>'
+                            +'</div>'
+                            +'<div class="col-md-2 col-sm-2 form-group">'
+                                +'<label class="control-label">Placeholder</label>'
+                                +'<input type="text" placeholder="Masukan Placeholder field" class="form-control" name="placeholder[]" required>'
+                            +'</div>'
+                            +'<div class="col-md-2 col-sm-2 form-group">'
+                                +'<label class="control-label col-md-2 col-sm-2 col-xs-12">Type</label>'
+                                +'<select class="form-control" name="type[]" required>'
+                                    +'<option value="text">Text</option>'
+                                    +'<option value="select">Select</option>'
+                                +'</select>'
+                            +'</div>'
+                            +'<div class="col-md-2 col-sm-2 form-group">'
+                                +'<label class="control-label">Mandatory</label>'
+                                +'<select class="form-control" name="mandatory[]">'
+                                    +'<option value="false">Tidak Mandatory</option>'
+                                    +'<option value="required">Mandatory</option>'
+                                +'</select>'
+                            +'</div>'
+                            +'<div class="col-md-2">'
+                                +'<a href="javascript:void(0)" class="btn btn-danger remove-item-field">'
+                                    +'<i class="fa fa-minus-circle"></i>'
+                                +'</a>'
+                            +'</div>'
+                        +'</div>'
+                    );
+                    btnRemoveField();
                 });
             }
 

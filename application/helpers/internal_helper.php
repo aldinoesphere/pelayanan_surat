@@ -367,7 +367,7 @@ function get_alias($judul = '')
     return $alias;
 }
 
-function upload_thumbnail_proporsional($file = null){
+function uploadProporsionalThumbnail($file = null){
     $image = ImageResize::createFromString($file);
     $image->scale(65);
     return $image;
@@ -385,71 +385,7 @@ function ambil_pengaturan($key)
     }
 }
 
-function upload_banner($file = null)
-{
+function uploadBanner($file = null){
     $image = ImageResize::createFromString($file);
     return $image->resize(1920, 1000);
-}
-
-function get_link_foto($file = null)
-{
-    if ($file) {
-        return 'uploads/images/gallery/foto/'.$file;
-    }
-    return '';
-}
-
-function get_snippet($text, $start = 0, $max_length = 100)
-{
-    return substr($text, $start, $max_length);
-}
-
-function get_list_category()
-{
-    $CI =& get_instance();
-    $CI->load->model('artikel_model');
-    $categories = $CI->artikel_model->get_all_category();
-    $html = "<ul>";
-    foreach ($categories as $category) {
-        $html .= '<li><a href="'.base_url('artikel/kategori/'. $category->alias).'">' . $category->nama_kategori . '</a></li>';
-    }
-
-    return $html;
-}
-
-function get_all_jabatan()
-{
-    return array(
-        0 => array(
-                'id' => 1,
-                'jabatan' => 'KEPALA DESA'
-            ),
-        1 => array(
-                'id' => 2,
-                'jabatan' => 'SEKRETARIS DESA'
-            ),
-        2 => array(
-                'id' => 3,
-                'jabatan' => 'LURAH'
-            ),
-        3 => array(
-                'id' => 4,
-                'jabatan' => 'KLIWON'
-            )
-    );
-}
-
-function get_jabatan($id = 0)
-{
-    $all_jabatan = get_all_jabatan();
-    foreach ( $all_jabatan as $jabatan) {
-        if ($jabatan['id'] == $id) {
-            return $jabatan['jabatan'];
-        }
-    }
-}
-
-function getFormField($field)
-{
-    
 }

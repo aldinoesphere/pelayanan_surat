@@ -34,19 +34,16 @@
     </div>
   </div>
 </div>
-<!-- baseUrl -->
-<script type="text/javascript">var baseUrl = '<?php echo base_url(); ?>';</script>
 <!-- jQuery 3 -->
-<script type="text/javascript" src="<?php echo base_url(); ?>assets/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
-<script type="text/javascript" src="<?php echo base_url(); ?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/dist/js/SmoothScroll.js'); ?>"></script> 
 <script type="text/javascript" src="<?php echo base_url('assets/dist/js/nivo-lightbox.js'); ?>"></script> 
 <script type="text/javascript" src="<?php echo base_url('assets/dist/js/jquery.isotope.js'); ?>"></script> 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/js/swiper.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/dist/js/jqBootstrapValidation.js'); ?>"></script> 
-<!-- <script type="text/javascript" src="<?php echo base_url('assets/dist/js/contact_me.js'); ?>"></script>  -->
+<script type="text/javascript" src="<?php echo base_url('assets/dist/js/contact_me.js'); ?>"></script> 
 <script type="text/javascript" src="<?php echo base_url('assets/dist/js/main.js'); ?>"></script>
-<script type="text/javascript" src="<?php echo base_url('assets/dist/js/custom.js'); ?>"></script>
 </body>
 </html>

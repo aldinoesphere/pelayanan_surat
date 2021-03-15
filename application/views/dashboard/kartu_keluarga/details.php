@@ -166,7 +166,7 @@
 <!-- REQUIRED JS SCRIPTS -->
 <script type="text/javascript">
     $(document).ready(function(){
-        $('#pegawai_keluarga').DataTable({});
+        $('#anggota_keluarga').DataTable({});
     });
     function deleteField(nik) {
         var resultConfirm = confirm('Apakah Anda yakin hapus anggota keluarga ini?');
@@ -189,9 +189,9 @@
         $.ajax({
             url : baseUrl+'kartu_keluarga/ajax_table_ak'
         }).done(function(r) {
-            $('#pegawai_keluarga').DataTable().destroy();
-            $('#pegawai_keluarga tbody').html(r);
-            $('#pegawai_keluarga').DataTable({});
+            $('#anggota_keluarga').DataTable().destroy();
+            $('#anggota_keluarga tbody').html(r);
+            $('#anggota_keluarga').DataTable({});
         }).fail(function() {
 
         });

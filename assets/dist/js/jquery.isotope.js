@@ -1403,5 +1403,4 @@
     // so plugin methods do not have to
     return this;
   };
-
 })( window, jQuery );

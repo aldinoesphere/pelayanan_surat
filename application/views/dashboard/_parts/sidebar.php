@@ -48,11 +48,6 @@
                             Hubungan
                         </a>
                     </li>
-                    <li <?php echo $this->uri->segment(1) == 'pegawai' ? 'class="active"' : ''; ?>>
-                        <a href="<?php echo base_url('pegawai'); ?>">
-                            <span>Pegawai</span>
-                        </a>
-                    </li>
                     <li <?php echo $this->uri->segment(1) == 'pekerjaan' ? 'class="active"' : ''; ?>>
                         <a href="<?php echo base_url('pekerjaan'); ?>">
                             <span>Pekerjaan</span>
@@ -61,11 +56,6 @@
                     <li <?php echo $this->uri->segment(1) == 'pendidikan' ? 'class="active"' : ''; ?>>
                         <a href="<?php echo base_url('pendidikan'); ?>">
                             Pendidikan
-                        </a>
-                    </li>
-                    <li <?php echo $this->uri->segment(1) == 'persyaratan_surat' ? 'class="active"' : ''; ?>>
-                        <a href="<?php echo base_url('persyaratan_surat'); ?>">
-                            Persyaratan Surat
                         </a>
                     </li>
                     <li <?php echo $this->uri->segment(1) == 'status_kawin' ? 'class="active"' : ''; ?>>
@@ -86,8 +76,8 @@
                 </ul>
             </li>
             <li class="header">PELAYANAN MASYAKARAT</li>
-            <li <?php echo $this->uri->segment(1) == 'pelayanan_surat' && $this->uri->segment(2) == 'tampilan_daftar'  ? 'class="active"' : ''; ?>>
-                <a href="<?php echo base_url('pelayanan_surat/tampilan_daftar'); ?>">
+            <li <?php echo $this->uri->segment(1) == 'surat' ? 'class="active"' : ''; ?>>
+                <a href="<?php echo base_url('surat'); ?>">
                     <i class="fa fa-envelope"></i> PERMOHONAN SURAT
                 </a>
             </li>
@@ -136,13 +126,13 @@
                 </ul>
             </li>
             <li class="header">GALLERY</li>
-            <li <?php echo $this->uri->segment(1) == 'gallery' && $this->uri->segment(2) == 'daftar_foto' ? 'class="active"' : ''; ?>>
-                <a href="<?php echo base_url('gallery/daftar_foto'); ?>">
+            <li <?php echo $this->uri->segment(1) == 'foto' ? 'class="active"' : ''; ?>>
+                <a href="<?php echo base_url('foto'); ?>">
                     <i class="fa fa-image"></i> FOTO
                 </a>
             </li>
-            <li <?php echo $this->uri->segment(1) == 'gallery' && $this->uri->segment(2) == 'daftar_video' ? 'class="active"' : ''; ?>>
-                <a href="<?php echo base_url('gallery/daftar_video'); ?>">
+            <li <?php echo $this->uri->segment(1) == 'video' ? 'class="active"' : ''; ?>>
+                <a href="<?php echo base_url('video'); ?>">
                     <i class="fa fa-film"></i> VIDEO
                 </a>
             </li>

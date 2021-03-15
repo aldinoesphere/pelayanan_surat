@@ -9,27 +9,51 @@
         </div>
         <div class="row">
             <div class="col-sm-8">
-                <?php foreach ($artikels as $artikel) : ?>
                 <div class="row">
-                    <div class="col-sm-12 post-content">
+                    <div class="col-sm-12">
                         <div class="col-sm-6">
-                            <h3 class="post-title"><?php echo strtoupper($artikel->judul); ?></h3>
+                            <h3 class="post-title">Lorem ipsum</h3>
                             <p class="publish-info">
                                 <i class="fa fa-user"></i> Administrator <i class="fa fa-clock-o"></i> 30 Maret 2019 17:00:00
                             </p>
-                            <p><?php echo get_snippet($artikel->konten, 0, 120); ?></p>
-                            <a href="<?php echo base_url('artikel/single/'.$artikel->alias); ?>" class="btn btn-show-more">Baca selengkapnya</a>
+                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                            <a href="#" class="btn btn-show-more">Show More</a>
                         </div>
                         <div class="col-sm-6">
-                            <div class="image-container">
-                                <div class="image-wrap">
-                                    <img src="<?php echo base_url('uploads/images/post/thumbnail/'.$artikel->post_thumbnail); ?>">  
-                                </div>
-                            </div>
+                            <img src="assets/dist/img/photo2.png" class="image-thumbnail">
                         </div>
                     </div>
                 </div>
-                <?php endforeach; ?>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-6">
+                            <h3 class="post-title">Lorem ipsum</h3>
+                            <p class="publish-info">
+                                <i class="fa fa-user"></i> Administrator <i class="fa fa-clock-o"></i> 30 Maret 2019 17:00:00
+                            </p>
+                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                            <a href="#" class="btn btn-show-more">Show More</a>
+                        </div>
+                        <div class="col-sm-6">
+                            <img src="assets/dist/img/photo2.png" class="image-thumbnail">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-6">
+                            <h3 class="post-title">Lorem ipsum</h3>
+                            <p class="publish-info">
+                                <i class="fa fa-user"></i> Administrator <i class="fa fa-clock-o"></i> 30 Maret 2019 17:00:00
+                            </p>
+                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                            <a href="#" class="btn btn-show-more">Show More</a>
+                        </div>
+                        <div class="col-sm-6">
+                            <img src="assets/dist/img/photo2.png" class="image-thumbnail">
+                        </div>
+                    </div>
+                </div>
                 <div class="post-pagination">
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-end">
@@ -67,7 +91,7 @@
                         <h3 class="box-title">Kategori</h3>
                     </div>
                     <div class="box-body">
-                        <?php echo get_list_category(); ?>
+                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
                     </div>
                 </div>
                 <div class="box box-warning">
@@ -146,8 +170,9 @@
                     <li>
                         <ol class="type">
                             <li><a href="#" data-filter="*" class="active">All</a></li>
-                            <li><a href="#" data-filter=".foto">Foto</a></li>
-                            <li><a href="#" data-filter=".video">Video</a></li>
+                            <li><a href="#" data-filter=".ontheroad">On the road</a></li>
+                            <li><a href="#" data-filter=".event">Events</a></li>
+                            <li><a href="#" data-filter=".socialisation">Socialisation</a></li>
                         </ol>
                     </li>
                 </ul>
@@ -157,16 +182,17 @@
         <div class="row">
             <div class="portfolio-items">
                 <?php 
-                    foreach ($galleries as $gallery) :
-                    $image = get_link_foto($gallery->cover_album);
+                    foreach ($galleries as $gallery) : 
+                    $image = 'uploads/images/albums/' . $gallery->link_cover;
+                    $albums = $this->internal->thumb($image, 500, 333);
                 ?>
-                <div class="col-sm-6 col-md-4 col-lg-4 <?php if ($gallery->kategori == 0 ) { echo 'foto'; }else{ echo 'video' ; } ?>">
+                <div class="col-sm-6 col-md-4 col-lg-4 <?=$gallery->category?>">
                     <div class="portfolio-item">
-                        <div class="hover-bg"> <a href="<?php base_url('single/gallery/' . $gallery->id); ?>" title="<?php echo $gallery->judul; ?>">
+                        <div class="hover-bg"> <a href="<?=base_url('single/gallery/' . $gallery->ID)?>" title="<?=$gallery->title?>">
                             <div class="hover-text">
-                                <h4><?php echo $gallery->judul; ?></h4>
+                                <h4><?=$gallery->title?></h4>
                             </div>
-                            <img src="<?php echo base_url($image); ?>" class="img-responsive" alt="Project Title"> </a> 
+                            <img src="data:image/png;base64,<?=$albums?>" class="img-responsive" alt="Project Title"> </a> 
                         </div>
                     </div>
                 </div>
@@ -176,7 +202,7 @@
     </div>
 </div>
 <!-- Team Section -->
-<div id="pegawai" class="text-center">
+<div id="anggota" class="text-center">
     <div class="overlay">
         <div class="container">
             <div class="row">
@@ -187,18 +213,11 @@
                 </div>
             </div>
             <div id="row">
-                <div class="swiper-container pegawai">
+                <div class="swiper-container anggota">
                     <div class="swiper-wrapper">
-                        <?php
-                            foreach ($semua_pegawai as $pegawai) :
-                                if ($pegawai->link_photo) {
-                                    $link_photo = base_url('uploads/images/pegawai/thumbnail/'.$pegawai->link_photo);
-                                } else {
-                                    $link_photo = base_url('assets/dist/img/avatar.png');
-                                }
-                        ?>
-                            <div class="swiper-slide" style="background-image:url(<?php echo $link_photo ?>)"></div>
-                        <?php endforeach; ?>
+                        <div class="swiper-slide" style="background-image:url(assets/dist/img/avatar.png)"></div>
+                        <div class="swiper-slide" style="background-image:url(assets/dist/img/avatar.png)"></div>
+                        <div class="swiper-slide" style="background-image:url(assets/dist/img/avatar.png)"></div>
                     </div>
                     <!-- Add Pagination -->
                     <div class="swiper-button-next swiper-button-white"></div>

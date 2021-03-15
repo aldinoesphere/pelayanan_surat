@@ -30,10 +30,6 @@ class Pengaturan extends CI_Controller {
 		echo json_encode($return);
 	}
 
-	/**
-	 * Pengaturan Banner
-	 */
-
 	public function banner()
 	{
 		$data['banners'] = $this->pengaturan_model->get_banners();
@@ -72,7 +68,7 @@ class Pengaturan extends CI_Controller {
 	    $data = base64_decode($banner);
 	    $newName = random_string(20) . '.jpg';
 	    $patchOriginal = 'uploads/images/banner/' . $newName;
-	    $upload = upload_banner($data)
+	    $upload = uploadBanner($data)
 		   			->save($patchOriginal);
 
 		if (!$upload) {
@@ -150,17 +146,5 @@ class Pengaturan extends CI_Controller {
 		}
 
 		echo $html;
-	}
-
-	/**
-	 * Eof Banner settings
-	 */
-
-	/**
-	 * User settings
-	 */
-	public function daftar_pengguna()
-	{
-		
 	}
 }

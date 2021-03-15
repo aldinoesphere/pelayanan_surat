@@ -20,17 +20,6 @@ class Artikel extends CI_Controller {
 	* Kumpulan Fungsi Kategori Artikel
 	*/
 
-	public function kategori($category_slug)
-	{
-		$data = [
-			'slug' => $category_slug,
-			'artikels' => $this->artikel_model->get_post_by_category($category_slug)
-		];
-		$this->load->view('front/_parts/header-single');
-		$this->load->view('front/post-list', $data);
-		$this->load->view('front/_parts/footer');
-	}
-
 	public function menu_kategori()
 	{
 		$data = [
@@ -195,17 +184,6 @@ class Artikel extends CI_Controller {
 	* Kumpulan Fungsi Artikel
 	*/
 
-	public function single($slug)
-	{
-		$data = [
-			'posts' => $this->artikel_model->get_by_slug($slug)
-		];
-
-		$this->load->view('front/_parts/header-single');
-		$this->load->view('front/single', $data);
-		$this->load->view('front/_parts/footer');
-	}
-
 	public function daftar()
 	{
 		$data = [
@@ -306,6 +284,10 @@ class Artikel extends CI_Controller {
 	public function ubah_artikel($id)
 	{
 		$inputs = $this->input->post();
+		
+		if ($_FILES['post_thumbnail']['size'] > 0) {
+			
+		}
 
 		$data = [];
 		$data = array_merge_recursive(

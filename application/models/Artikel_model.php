@@ -30,14 +30,6 @@ class Artikel_model extends CI_Model
 					->result();
 	}
 
-	public function get_by_slug($slug)
-	{
-		return $this->db
-					->where(['alias' => $slug])
-					->get('post')
-					->result();
-	}
-
 	public function select_all()
 	{
 		return $this->db
@@ -52,18 +44,6 @@ class Artikel_model extends CI_Model
 					->where([
 						'tipe' => 'artikel',
 						'alias' => $alias
-					])
-					->get('post')
-					->result();
-	}
-
-	public function get_post_by_category($category_slug)
-	{
-		return $this->db
-					->select('post.*')
-					->join('kategori', 'kategori.id=post.kategori')
-					->where([
-						'kategori.alias' => $category_slug
 					])
 					->get('post')
 					->result();

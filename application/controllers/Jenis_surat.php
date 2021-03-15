@@ -8,7 +8,7 @@ class Jenis_surat extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model(['jenis_surat_model', 'persyaratan_surat_model']);
+		$this->load->model(['jenis_surat_model']);
 	}
 
 	public function index()
@@ -31,41 +31,15 @@ class Jenis_surat extends CI_Controller {
 		$this->load->view('dashboard/_parts/footer');
 	}
 
-    public function ajax_persyaratan_surat()
-    {
-        $persyaratan_surat = $this->persyaratan_surat_model->select_all();
-        $persyaratan_surat_html = '<div class="item-field col-md-12">'
-        . '<div class="col-md-10 col-sm-10 form-group">'
-        . '<label class="control-label">Persyaratan</label>'
-        . '<select class="form-control select2" name="persyaratan[]">'
-        . '<option value="0">Pilih Persyaratan Surat</option>';
-        foreach ($persyaratan_surat as $persyaratan) {
-            $persyaratan_surat_html .= '<option value="'. $persyaratan->id .'">'. $persyaratan->nama_persyaratan .'</option>';
-        }
-        $persyaratan_surat_html .= '</select>'
-        . '</div>'
-        . '<div class="col-md-2 btn-remove">'
-        . '<a href="javascript:void(0)" class="btn btn-danger remove-item-field">'
-        . '<i class="fa fa-minus-circle"></i>'
-        . '</a>'
-        . '</div>'
-        . '</div>';
-
-        $result['html'] = $persyaratan_surat_html;
-
-        echo json_encode($result);
-    }
-
 	public function ubah($id)
 	{
 		$jenis_surat = $this->jenis_surat_model->select_by_id($id);
 		$data = [
-			'jenis_surat' => $jenis_surat,
-            'persyaratan_surat' => $this->persyaratan_surat_model->select_all()
+			'jenis_surat' => $jenis_surat
 		];
 
-		if (!is_null($jenis_surat[0]->persyaratan)) {
-			$data['persyaratan'] = json_decode($jenis_surat[0]->persyaratan);
+		if (!is_null($jenis_surat[0]->form_field)) {
+			$data['form_field'] = json_decode($jenis_surat[0]->form_field);
 		}
 
 		$this->load->view('dashboard/_parts/header', $data);
@@ -182,15 +156,34 @@ class Jenis_surat extends CI_Controller {
         $file_ext = '.rtf';
         $kode_surat = $this->input->post('kode_surat');
         $informasi = $this->input->post('informasi');
-        $persyaratan = $this->input->post('persyaratan');
+        $field_id = $this->input->post('id');
+        $placeholder = $this->input->post('placeholder');
+        $label = $this->input->post('label');
+        $type = $this->input->post('type');
+        $mandatory = $this->input->post('mandatory');
         $file_template = str_replace(" ", "_", strtolower($nama_surat)) . $file_ext;
 
         $data_surat = array(
             'kode_surat' => $kode_surat,
-            'nama_surat' => strtoupper($nama_surat),
+            'nama_surat' => $nama_surat,
             'informasi' => $informasi,
-            'persyaratan' => json_encode($persyaratan)
+            'form_field' => ''
         );
+
+        if (isset($field_id) || isset($label) || isset($type) || isset($mandatory) || isset($placeholder)) {
+        	for ($i=0; $i < sizeof($field_id); $i++) { 
+        		$form_field[$i] = array(
+        			'id' => $field_id[$i],
+        			'name' => $field_id[$i],
+        			'placeholder' => $placeholder[$i],
+        			'class' => 'form-control',
+        			'label' => $label[$i],
+        			'type' => $type[$i],
+        			'required' => $mandatory[$i]
+        		);
+        	}
+        	$data_surat['form_field'] = json_encode($form_field);
+        }
 
         if ($_FILES['file-template']['size'] > 0) {
         	$newFileTemplate = pathinfo('template_surat/'.basename($_FILES['file-template']['name']), PATHINFO_EXTENSION);
@@ -248,18 +241,36 @@ class Jenis_surat extends CI_Controller {
         $file_ext = '.rtf';
         $kode_surat = $this->input->post('kode_surat');
         $informasi = $this->input->post('informasi');
-        $persyaratan = $this->input->post('persyaratan');
+        $field_id = $this->input->post('id');
+        $placeholder = $this->input->post('placeholder');
+        $label = $this->input->post('label');
+        $type = $this->input->post('type');
+        $mandatory = $this->input->post('mandatory');
         $file_template = str_replace(" ", "_", strtolower($nama_surat)) . $file_ext;
         $date = date("Y-m-d H:i:s");
 
         $data_surat = array(
             'kode_surat' => $kode_surat,
-            'nama_surat' => strtoupper($nama_surat),
+            'nama_surat' => $nama_surat,
             'file_template' => $file_template,
-            'persyaratan' => json_encode($persyaratan),
             'informasi' => $informasi,
             'created' => $date
         );
+
+        if (isset($field_id) || isset($label) || isset($type) || isset($mandatory) || isset($placeholder)) {
+            for ($i=0; $i < sizeof($field_id); $i++) { 
+                $form_field[$i] = array(
+                    'id' => $field_id[$i],
+                    'name' => $field_id[$i],
+                    'placeholder' => $placeholder[$i],
+                    'class' => 'form-control',
+                    'label' => $label[$i],
+                    'type' => $type[$i],
+                    'required' => $mandatory[$i]
+                );
+            }
+            $data_surat['form_field'] = json_encode($form_field);
+        }
 
         if ($this->do_upload($file_template)) {
         	if ($this->jenis_surat_model->insert($data_surat)) {
@@ -269,8 +280,8 @@ class Jenis_surat extends CI_Controller {
 	            );
 	        } else {
 	            $result = array(
-    	            'msg' => 'Jenis surat gagal ditambahkan',
-    	            'cls' => 'error'
+	            'msg' => 'Jenis surat gagal ditambahkan',
+	            'cls' => 'error'
 	            );
 	        }
         } else {

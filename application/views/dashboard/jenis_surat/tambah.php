@@ -39,6 +39,7 @@
                                         <div class="form-group">
                                             <label for="informasi">INFORMASI</label>
                                             <textarea id="informasi" name="informasi" rows="10" cols="80">
+                                                
                                             </textarea>
                                         </div>
                                         <div class="form-group">
@@ -48,11 +49,11 @@
                                         <hr>
                                         <!-- Custom Field surat -->
                                         <div class="form-group text-right">
-                                            <a href="javascript:void(0)" class="btn btn-primary add-field"> PERSYARATAN SURAT <i class="fa fa-plus-circle"></i></a>
+                                            <a href="javascript:void(0)" class="btn btn-primary add-field"> Field Surat <i class="fa fa-plus-circle"></i></a>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-builder">
-                                                <p class="text-center field-default">Tidak ada data persyaratan</p>
+                                                <p class="text-center field-default">Tidak ada data Field tambahan</p>
                                             </div>
                                         </div>
                                         <!-- /Custom Field surat -->
@@ -115,7 +116,7 @@
                         var itemField = $(this).closest('.item-field');
                         $(itemField).remove();
                         if ($('.item-field').length <= 0) {
-                            $('.form-builder').html('<p class="text-center field-default">Tidak ada data persyaratan</p>');
+                            $('.form-builder').html('<p class="text-center field-default">Tidak ada data Field tambahan</p>');
                         }
                     });
                 });
@@ -127,26 +128,52 @@
                     if ($('.field-default')) {
                         $('.field-default').remove();
                     }
-                    $.ajax({
-                        url : baseUrl+'jenis_surat/ajax_persyaratan_surat',
-                        dataType : 'JSON'
-                    }).done(function(r) {
-                        $('.form-builder').append(r.html);
-                        $(".select2").select2();
-                        btnRemoveField();
-                    }).fail(function() {
-                        btnRemoveField();
-                    });
+                    $('.form-builder').append(
+                        '<div class="item-field col-md-12">'
+                            +'<div class="col-md-2 col-sm-2 form-group">'
+                                +'<label class="control-label">ID</label>'
+                                +'<input type="text" placeholder="Masukan ID element field" class="form-control" name="id[]" required>'
+                            +'</div>'
+                            +'<div class="col-md-2 col-sm-2 form-group">'
+                                +'<label class="control-label">Nama label</label>'
+                                +'<input type="text" placeholder="Masukan nama label field" class="form-control" name="label[]" required>'
+                            +'</div>'
+                            +'<div class="col-md-2 col-sm-2 form-group">'
+                                +'<label class="control-label">Placeholder</label>'
+                                +'<input type="text" placeholder="Masukan Placeholder field" class="form-control" name="placeholder[]" required>'
+                            +'</div>'
+                            +'<div class="col-md-2 col-sm-2 form-group">'
+                                +'<label class="control-label col-md-2 col-sm-2 col-xs-12">Type</label>'
+                                +'<select class="form-control" name="type[]" required>'
+                                    +'<option value="text">Text</option>'
+                                    +'<option value="select">Select</option>'
+                                +'</select>'
+                            +'</div>'
+                            +'<div class="col-md-2 col-sm-2 form-group">'
+                                +'<label class="control-label">Mandatory</label>'
+                                +'<select class="form-control" name="mandatory[]">'
+                                    +'<option value="false">Tidak Mandatory</option>'
+                                    +'<option value="required">Mandatory</option>'
+                                +'</select>'
+                            +'</div>'
+                            +'<div class="col-md-2">'
+                                +'<a href="javascript:void(0)" class="btn btn-danger remove-item-field">'
+                                    +'<i class="fa fa-minus-circle"></i>'
+                                +'</a>'
+                            +'</div>'
+                        +'</div>'
+                    );
+                    btnRemoveField();
                 });
             } 
 
             function init() {
                 ajax_form();
-                btnRemoveField();
                 var editor = CKEDITOR.replace('informasi');
                 editor.on('change', function(evt) {
                     $('#informasi').html(evt.editor.getData());
                 });
+                btnRemoveField();
                 btnAddField();
             }
 

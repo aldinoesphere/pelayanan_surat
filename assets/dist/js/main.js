@@ -1,10 +1,9 @@
-
 function main() {
 
 (function () {
    'use strict';
 
-   var swiper = new Swiper('.pegawai', {
+   var swiper = new Swiper('.anggota', {
         pagination: '.swiper-pagination',
         nextButton: '.swiper-button-next',
         prevButton: '.swiper-button-prev',
@@ -60,7 +59,7 @@ function main() {
   });
 	
   	// Portfolio isotope filter
-    $(window).on('load', function() {
+    $(window).load(function() {
         var $container = $('.portfolio-items');
         $container.isotope({
             filter: '*',

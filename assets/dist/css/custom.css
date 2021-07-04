@@ -1,0 +1,11 @@
+.display-image {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.display-image img {
+	width: 100%;
+	height: auto;
+}

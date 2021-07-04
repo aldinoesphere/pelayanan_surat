@@ -7,7 +7,7 @@
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo base_url('dashboard'); ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-                        <li class="active"><?php echo $page_active['value']; ?></li>
+                        <li class="active">Kartu Keluarga</li>
                         <li class="active">Tambah</li>
                     </ol>
                 </section>
@@ -18,8 +18,11 @@
                         <div class="box">
                             <!-- general form elements -->
                             <div class="box box-primary">
-                                <div class="box-header with-border">
+                                <div class="box-header">
                                     <h3 class="box-title">Form Kartu Keluarga</h3>
+                                    <div class="pull-right box-tools">
+                                        <a class="btn btn-primary" href="<?php echo base_url('kartu_keluarga'); ?>"><i class="fa fa-mail-reply"></i></a>
+                                    </div>
                                 </div>
                                 <!-- /.box-header -->
                                 <!-- form start -->
@@ -130,12 +133,13 @@
             </footer>
         </div>
         <!-- ./wrapper -->
-        <?php $this->load->view('dashboard/js'); ?>
+        <?php $this->load->view('dashboard/_parts/js'); ?>
         <!-- REQUIRED JS SCRIPTS -->
         <script type="text/javascript">
             function ajax_form() {
                 $('#form_kk').on('submit', function(e) {
                     e.preventDefault();
+                    var form = this;
                     $('.form-loading').show();
                     data = $(this).serialize();
                     $.ajax({
@@ -144,12 +148,9 @@
                         type : "POST",
                         data : data
                     }).done(function(r) {
+                        $(form)[0].reset();
                         $('.form-loading').hide();
-                        if (r.cls == 'success') {
-                            alert(r.msg);
-                        } else {
-                            alert(r.msg);
-                        }
+                        $.notify(r.msg, r.cls);
                     }).fail(function() {
                         $('.form-loading').hide();
                     });

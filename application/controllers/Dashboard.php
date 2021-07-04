@@ -10,6 +10,6 @@ class Dashboard extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('dashboard/content');
+		$this->load->view('dashboard/_parts/content');
 	}
 }
